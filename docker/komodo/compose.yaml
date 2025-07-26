@@ -1,6 +1,7 @@
 services:
   mongo:
     image: "mongo:8.0"
+    container_name: "komodo-mongo"
     labels:
       komodo.skip: # Prevent Komodo from stopping with StopAllContainers
     command: "--quiet --wiredTigerCacheSizeGB 0.25"
@@ -14,6 +15,7 @@ services:
 
   core:
     image: "ghcr.io/moghtech/komodo-core:1.18.4"
+    container_name: "komodo-core"
     labels:
       komodo.skip: # Prevent Komodo from stopping with StopAllContainers
     restart: "unless-stopped"
@@ -21,17 +23,26 @@ services:
       - "mongo"
     ports:
       - "9120:9120"
-    extra_hosts:
-       - host.docker.internal:host-gateway
+    networks:
+      - default
+      - periphery
     environment:
       KOMODO_DATABASE_ADDRESS: "mongo:27017"
       KOMODO_DATABASE_USERNAME: "${KOMODO_DB_USERNAME:?error}"
       KOMODO_DATABASE_PASSWORD: "${KOMODO_DB_PASSWORD:?error}"
-      KOMODO_FIRST_SERVER: "https://host.docker.internal:8120"
+      KOMODO_FIRST_SERVER: "https://periphery:8120"
       KOMODO_PASSKEY: "${KOMODO_PASSKEY:?error}"
       KOMODO_HOST: "$KOMODO_HOST?:error}"
       KOMODO_WEBHOOK_SECRET: "${KOMODO_WEBHOOK_SECRET:?error}"
+      KOMODO_LOCAL_AUTH: "${KOMODO_LOCAL_AUTH:-true}"
+      KOMODO_DISABLE_USER_REGISTRATION: "${KOMODO_DISABLE_USER_REGISTRATION:-true}"
+      TZ: "${TZ:-Europe/Berlin}"
     volumes:
       - "repo-cache:/repo-cache"
 volumes:
   repo-cache:
+networks:
+  default:
+  periphery:
+    external: true
+    name: ${PERIPHERY_NETWORK_NAME:-periphery_default}
