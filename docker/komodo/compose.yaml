@@ -6,8 +6,8 @@ services:
     command: "--quiet --wiredTigerCacheSizeGB 0.25"
     restart: "unless-stopped"
     volumes:
-      - "${DOCKER_DATA_DIR:?error}/${COMPOSE_PROJECT_NAME:?error}/mongo-data:/data/db"
-      - "${DOCKER_DATA_DIR:?error}/${COMPOSE_PROJECT_NAME:?error}/mongo-config:/data/configdb"
+      - "${DOCKER_DATA_DIR:?error}/${COMPOSE_PROJECT_NAME:?error}/mongo-data:/data/db:z"
+      - "${DOCKER_DATA_DIR:?error}/${COMPOSE_PROJECT_NAME:?error}/mongo-config:/data/configdb:z"
     environment:
       MONGO_INITDB_ROOT_USERNAME: "${KOMODO_DB_USERNAME:?error}"
       MONGO_INITDB_ROOT_PASSWORD: "${KOMODO_DB_PASSWORD:?error}"
