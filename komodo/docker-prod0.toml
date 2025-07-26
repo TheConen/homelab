@@ -10,6 +10,7 @@ enabled = true
 name = "komodo"
 [stack.config]
 server = "docker-prod0"
+project_name = "komodo"
 poll_for_updates = true
 linked_repo = "homelab"
 run_directory = "docker/komodo"
@@ -18,7 +19,7 @@ COMPOSE_PROJECT_NAME=komodo
 DOCKER_DATA_DIR=[[DOCKER_DATA_DIR]]
 KOMODO_DB_USERNAME=[[KOMODO_DB_USERNAME]]
 KOMODO_DB_PASSWORD=[[KOMODO_DB_PASSWORD]]
-KOMODO_PASSKEY=[[PERIPHERY_PASSKEY]]
+KOMODO_PASSKEY=[[KOMODO_PASSKEY]]
 KOMODO_HOST=[[KOMODO_HOST]]
 KOMODO_WEBHOOK_SECRET=[[KOMODO_WEBHOOK_SECRET]]
 KOMODO_LOCAL_AUTH=true
