@@ -6,6 +6,41 @@ enabled = true
 
 ##
 
+[[stack]]
+name = "komodo"
+[stack.config]
+server = "docker-prod0"
+linked_repo = "homelab"
+run_directory = "docker/komodo"
+environment = """
+COMPOSE_PROJECT_NAME=komodo
+DOCKER_DATA_DIR=[[DOCKER_DATA_DIR]]
+KOMODO_DB_USERNAME=[[KOMODO_DB_USERNAME]]
+KOMODO_DB_PASSWORD=[[KOMODO_DB_PASSWORD]]
+KOMODO_PASSKEY=[[PERIPHERY_PASSKEY]]
+KOMODO_HOST=[[KOMODO_HOST]]
+KOMODO_WEBHOOK_SECRET=[[KOMODO_WEBHOOK_SECRET]]
+KOMODO_LOCAL_AUTH=true
+KOMODO_DISABLE_USER_REGISTRATION=true
+"""
+
+##
+
+[[stack]]
+name = "periphery"
+[stack.config]
+server = "docker-prod0"
+poll_for_updates = true
+linked_repo = "homelab"
+run_directory = "docker/periphery"
+environment = """
+COMPOSE_PROJECT_NAME=periphery
+COMPOSE_PROFILES=internal
+PERIPHERY_PASSKEYS=[[PERIPHERY_PASSKEYS]]
+"""
+
+##
+
 [[repo]]
 name = "homelab"
 [repo.config]
