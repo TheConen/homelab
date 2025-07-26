@@ -1,0 +1,33 @@
+[[server]]
+name = "docker-prod0"
+[server.config]
+address = "https://periphery:8120"
+enabled = true
+
+##
+
+[[repo]]
+name = "homelab"
+[repo.config]
+server = "docker-prod0"
+builder = "local"
+git_account = "theconen"
+repo = "theconen/homelab"
+
+##
+
+[[builder]]
+name = "local"
+[builder.config]
+type = "Server"
+params.server_id = "docker-prod0"
+
+##
+
+[[resource_sync]]
+name = "homelab"
+[resource_sync.config]
+linked_repo = "homelab"
+resource_path = ["komodo/docker-prod0.toml"]
+managed = true
+delete = true
