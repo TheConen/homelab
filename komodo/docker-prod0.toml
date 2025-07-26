@@ -10,6 +10,7 @@ enabled = true
 name = "komodo"
 [stack.config]
 server = "docker-prod0"
+poll_for_updates = true
 linked_repo = "homelab"
 run_directory = "docker/komodo"
 environment = """
@@ -27,9 +28,10 @@ KOMODO_DISABLE_USER_REGISTRATION=true
 ##
 
 [[stack]]
-name = "periphery"
+name = "periphery-prod0"
 [stack.config]
 server = "docker-prod0"
+project_name = "periphery"
 poll_for_updates = true
 linked_repo = "homelab"
 run_directory = "docker/periphery"
