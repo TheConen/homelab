@@ -1,0 +1,19 @@
+services:
+  periphery:
+    image: "ghcr.io/moghtech/komodo-periphery:1.18.4"
+    container_name: "periphery"
+    labels:
+      komodo.skip: # Prevent Komodo from stopping with StopAllContainers
+    restart: "unless-stopped"
+    ports:
+      - "8120:8120"
+    volumes:
+      ## Mount external docker socket
+      - /var/run/docker.sock:/var/run/docker.sock
+      ## Allow Periphery to see processes outside of container
+      - /proc:/proc
+      ## Specify the Periphery agent root directory.
+      ## Must be the same inside and outside the container,
+      ## or docker will get confused. See https://github.com/moghtech/komodo/discussions/180.
+      ## Default: /etc/komodo.
+      - /etc/komodo:/etc/komodo
