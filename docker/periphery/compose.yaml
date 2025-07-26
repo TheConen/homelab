@@ -7,6 +7,9 @@ services:
     restart: "unless-stopped"
     ports:
       - "8120:8120"
+    environment:
+      - PERIPHERY_PASSKEYS=${PERIPHERY_PASSKEYS:?error}
+      - PERIPHERY_ALLOWED_IPS=${PERIPHERY_ALLOWED_IPS}
     volumes:
       ## Mount external docker socket
       - /var/run/docker.sock:/var/run/docker.sock
