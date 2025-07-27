@@ -6,14 +6,6 @@ enabled = true
 
 ##
 
-[[server]]
-name = "docker-test0"
-[server.config]
-address = "https://docker-test0.fritz.box:8120"
-enabled = true
-
-##
-
 [[stack]]
 name = "komodo"
 [stack.config]
@@ -35,30 +27,14 @@ KOMODO_DISABLE_USER_REGISTRATION=true
 ##
 
 [[stack]]
-name = "periphery-prod0"
+name = "periphery"
 [stack.config]
 server = "docker-prod0"
-project_name = "periphery"
 poll_for_updates = true
 linked_repo = "homelab"
 run_directory = "docker/periphery"
 environment = """
 COMPOSE_PROFILES=internal
-PERIPHERY_PASSKEYS=[[PERIPHERY_PASSKEYS]]
-"""
-
-##
-
-[[stack]]
-name = "periphery-test0"
-[stack.config]
-server = "docker-test0"
-project_name = "periphery"
-poll_for_updates = true
-linked_repo = "homelab"
-run_directory = "docker/periphery"
-environment = """
-COMPOSE_PROFILES=exposed
 PERIPHERY_PASSKEYS=[[PERIPHERY_PASSKEYS]]
 """
 
