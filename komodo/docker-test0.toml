@@ -1,1 +1,33 @@
-## Add resources to get started
+[[server]]
+name = "docker-test0"
+[server.config]
+address = "https://periphery:8120"
+enabled = true
+
+##
+
+[[repo]]
+name = "Homelab"
+[repo.config]
+server = "docker-test0"
+builder = "local"
+git_account = "theconen"
+repo = "theconen/homelab"
+
+##
+
+[[builder]]
+name = "local"
+[builder.config]
+type = "Server"
+params.server_id = "docker-test0"
+
+##
+
+[[resource_sync]]
+name = "homelab"
+[resource_sync.config]
+linked_repo = "Homelab"
+resource_path = ["komodo/docker-test0.toml"]
+managed = true
+delete = true
