@@ -41,7 +41,7 @@ PERIPHERY_PASSKEYS=[[PERIPHERY_PASSKEYS]]
 ##
 
 [[repo]]
-name = "Homelab"
+name = "homelab"
 [repo.config]
 server = "docker-test0"
 builder = "local"
@@ -61,7 +61,7 @@ params.server_id = "docker-test0"
 [[resource_sync]]
 name = "homelab"
 [resource_sync.config]
-linked_repo = "Homelab"
+linked_repo = "homelab"
 resource_path = ["komodo/docker-test0.toml"]
 managed = true
 delete = true
