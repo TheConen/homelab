@@ -1,5 +1,5 @@
 [[server]]
-name = "docker-prod0"
+name = "local"
 [server.config]
 address = "https://periphery:8120"
 enabled = true
@@ -9,7 +9,7 @@ enabled = true
 [[stack]]
 name = "komodo"
 [stack.config]
-server = "docker-prod0"
+server = "local"
 poll_for_updates = true
 linked_repo = "homelab"
 run_directory = "docker/komodo"
@@ -29,7 +29,7 @@ KOMODO_DISABLE_USER_REGISTRATION=true
 [[stack]]
 name = "periphery"
 [stack.config]
-server = "docker-prod0"
+server = "local"
 poll_for_updates = true
 linked_repo = "homelab"
 run_directory = "docker/periphery"
@@ -43,7 +43,7 @@ PERIPHERY_PASSKEYS=[[PERIPHERY_PASSKEYS]]
 [[repo]]
 name = "homelab"
 [repo.config]
-server = "docker-prod0"
+server = "local"
 builder = "local"
 git_account = "theconen"
 repo = "theconen/homelab"
@@ -54,7 +54,7 @@ repo = "theconen/homelab"
 name = "local"
 [builder.config]
 type = "Server"
-params.server_id = "docker-prod0"
+params.server_id = "local"
 
 ##
 
