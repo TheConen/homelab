@@ -24,8 +24,8 @@ services:
     ports:
       - "9120:9120"
     networks:
-      - default
-      - periphery
+      - "default"
+      - "periphery"
     environment:
       KOMODO_DATABASE_ADDRESS: "mongo:27017"
       KOMODO_DATABASE_USERNAME: "${KOMODO_DB_USERNAME:?error}"
@@ -45,4 +45,4 @@ networks:
   default:
   periphery:
     external: true
-    name: ${PERIPHERY_NETWORK_NAME:-periphery_default}
+    name: "${PERIPHERY_NETWORK_NAME:-periphery_default}"
