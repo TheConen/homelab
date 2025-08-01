@@ -43,6 +43,8 @@ services:
         condition: "service_healthy"
     command:
       - "--configFile=/etc/traefik/traefik_config.yml"
+    environment:
+      HETZNER_API_KEY: "${HETZNER_API_KEY:?error}" # Environment variable for Hetzner API key
     volumes:
       - "${DOCKER_DATA_DIR:?error}/${COMPOSE_PROJECT_NAME:?error}/traefik:/etc/traefik:ro,z" # Volume to store the Traefik configuration
       - "${DOCKER_DATA_DIR:?error}/${COMPOSE_PROJECT_NAME:?error}/letsencrypt:/letsencrypt:z" # Volume to store the Let's Encrypt certificates
