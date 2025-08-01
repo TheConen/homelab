@@ -40,6 +40,20 @@ PERIPHERY_PASSKEYS=[[PERIPHERY_PASSKEYS]]
 
 ##
 
+[[stack]]
+name = "pangolin"
+[stack.config]
+server = "local"
+poll_for_updates = true
+linked_repo = "homelab"
+run_directory = "docker/pangolin"
+environment = """
+DOCKER_DATA_DIR=[[DOCKER_DATA_DIR]]
+HETZNER_API_KEY=[[HETZNER_API_KEY]]
+"""
+
+##
+
 [[repo]]
 name = "homelab"
 [repo.config]
