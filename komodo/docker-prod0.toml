@@ -64,6 +64,32 @@ repo = "theconen/homelab"
 
 ##
 
+[[procedure]]
+name = "GitOps"
+
+[[procedure.config.stage]]
+name = "Stage 1"
+enabled = true
+executions = [
+    { execution.type = "PullRepo", execution.params.repo = "homelab", enabled = true }
+]
+
+[[procedure.config.stage]]
+name = "Stage 2"
+enabled = true
+executions = [
+    { execution.type = "RunSync", execution.params.sync = "homelab", enabled = true }
+]
+
+[[procedure.config.stage]]
+name = "Stage 3"
+enabled = true
+executions = [
+    { execution.type = "BatchDeployStackIfChanged", execution.params.pattern = "*", enabled = true }
+]
+
+##
+
 [[builder]]
 name = "local"
 [builder.config]
