@@ -48,8 +48,6 @@ services:
     volumes:
       - "${DOCKER_DATA_DIR:?error}/${COMPOSE_PROJECT_NAME:?error}/traefik:/etc/traefik:ro,z" # Volume to store the Traefik configuration
       - "${DOCKER_DATA_DIR:?error}/${COMPOSE_PROJECT_NAME:?error}/letsencrypt:/letsencrypt:z" # Volume to store the Let's Encrypt certificates
-    ports:
-      - "8080:8080"
 networks:
   default:
     driver: "bridge"
