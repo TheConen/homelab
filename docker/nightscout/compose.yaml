@@ -1,0 +1,62 @@
+services:
+  mongo:
+    container_name: "nightscout-mongodb"
+    image: "mongo:8.0"
+    restart: "unless-stopped"
+    volumes:
+      - "${DOCKER_DATA_DIR:?error}/${COMPOSE_PROJECT_NAME:?error}/mongodb:/data/db"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: "${NIGHTSCOUT_DB_USERNAME:?error}"
+      MONGO_INITDB_ROOT_PASSWORD: "${NIGHTSCOUT_DB_PASSWORD:?error}"
+  nightscout:
+    image: "nightscout/cgm-remote-monitor:15.0.3"
+    container_name: "nightscout"
+    restart: "unless-stopped"
+    depends_on:
+      - "mongo"
+    networks:
+      - "default"
+      - "pangolin"
+    environment:
+      # https://github.com/nightscout/cgm-remote-monitor#environment
+      NODE_ENV: "production"
+      TZ: "Europe/Berlin"
+      INSECURE_USE_HTTP: "true"
+      MONGO_CONNECTION: "mongodb://${KOMODO_DB_USERNAME:?error}:${KOMODO_DB_PASSWORD:?error}@mongo:27017/nightscout"
+      API_SECRET: "${API_SECRET}"
+      ENABLE: "careportal rawbg iob cors"
+      AUTH_DEFAULT_ROLES: "denied"
+      DISPLAY_UNITS: "mg/dl"
+      TIME_FORMAT: "24"
+      CUSTOM_TITLE: "TheConen's Nightscout"
+      THEME: "colors"
+      SHOW_FORECAST: "false"
+      ALARM_TIMEAGO_WARN: "off"
+      ALARM_TIMEAGO_URGENT: "off"
+      ALARM_HIGH: "off"
+      ALARM_LOW: "off"
+      ALARM_URGENT_HIGH: "off"
+      ALARM_URGENT_LOW: "off"
+  nightscout-reporter:
+    container_name: "nightscout-reporter"
+    build: "https://github.com/TheConen/nightscout-reporter-angular.git"
+    restart: "unless-stopped"
+    configs:
+        - source: "nginx-config"
+          target: "/etc/nginx/conf.d/nginx.conf"
+    networks:
+      - "pangolin"
+networks:
+  default: {}
+  pangolin:
+    external: true
+    name: "pangolin"
+configs:
+  nginx-config:
+    content: |
+      server {        
+        index index.html;
+        location / {
+          try_files $uri $uri/ /index.html;
+        }
+      }
