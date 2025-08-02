@@ -27,15 +27,18 @@ KOMODO_DISABLE_USER_REGISTRATION=true
 ##
 
 [[stack]]
-name = "periphery"
+name = "nightscout"
 [stack.config]
 server = "local"
 poll_for_updates = true
 linked_repo = "homelab"
-run_directory = "docker/periphery"
+run_directory = "docker/nightscout"
+extra_args = ["--build"]
 environment = """
-COMPOSE_PROFILES=internal
-PERIPHERY_PASSKEYS=[[PERIPHERY_PASSKEYS]]
+DOCKER_DATA_DIR=[[DOCKER_DATA_DIR]]
+API_SECRET=[[NIGHTSCOUT_API_SECRET]]
+NIGHTSCOUT_DB_USERNAME=[[NIGHTSCOUT_DB_USERNAME]]
+NIGHTSCOUT_DB_PASSWORD=[[NIGHTSCOUT_DB_PASSWORD]]
 """
 
 ##
@@ -55,17 +58,15 @@ HETZNER_API_KEY=[[HETZNER_API_KEY]]
 ##
 
 [[stack]]
-name = "nightscout"
+name = "periphery"
 [stack.config]
 server = "local"
 poll_for_updates = true
 linked_repo = "homelab"
-run_directory = "docker/nightscout"
+run_directory = "docker/periphery"
 environment = """
-DOCKER_DATA_DIR=[[DOCKER_DATA_DIR]]
-API_SECRET=[[NIGHTSCOUT_API_SECRET]]
-NIGHTSCOUT_DB_USERNAME=[[NIGHTSCOUT_DB_USERNAME]]
-NIGHTSCOUT_DB_PASSWORD=[[NIGHTSCOUT_DB_PASSWORD]]
+COMPOSE_PROFILES=internal
+PERIPHERY_PASSKEYS=[[PERIPHERY_PASSKEYS]]
 """
 
 ##
@@ -87,21 +88,21 @@ name = "GitOps"
 name = "Stage 1"
 enabled = true
 executions = [
-    { execution.type = "PullRepo", execution.params.repo = "homelab", enabled = true }
+  { execution.type = "PullRepo", execution.params.repo = "homelab", enabled = true }
 ]
 
 [[procedure.config.stage]]
 name = "Stage 2"
 enabled = true
 executions = [
-    { execution.type = "RunSync", execution.params.sync = "homelab", enabled = true }
+  { execution.type = "RunSync", execution.params.sync = "homelab", enabled = true }
 ]
 
 [[procedure.config.stage]]
 name = "Stage 3"
 enabled = true
 executions = [
-    { execution.type = "BatchDeployStackIfChanged", execution.params.pattern = "*", enabled = true }
+  { execution.type = "BatchDeployStackIfChanged", execution.params.pattern = "*", enabled = true }
 ]
 
 ##
