@@ -44,6 +44,7 @@ services:
   nightscout-reporter:
     container_name: "nightscout-reporter"
     build: "https://github.com/TheConen/nightscout-reporter-angular.git"
+    pull_policy: "always"
     restart: "unless-stopped"
     configs:
         - source: "nginx-config"
