@@ -54,6 +54,22 @@ HETZNER_API_KEY=[[HETZNER_API_KEY]]
 
 ##
 
+[[stack]]
+name = "nightscout"
+[stack.config]
+server = "local"
+poll_for_updates = true
+linked_repo = "homelab"
+run_directory = "docker/nightscout"
+environment = """
+DOCKER_DATA_DIR=[[DOCKER_DATA_DIR]]
+API_SECRET=[[NIGHTSCOUT_API_SECRET]]
+NIGHTSCOUT_DB_USERNAME=[[NIGHTSCOUT_DB_USERNAME]]
+NIGHTSCOUT_DB_PASSWORD=[[NIGHTSCOUT_DB_PASSWORD]]
+"""
+
+##
+
 [[repo]]
 name = "homelab"
 [repo.config]
