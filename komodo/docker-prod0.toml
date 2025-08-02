@@ -32,6 +32,7 @@ name = "nightscout"
 server = "local"
 poll_for_updates = true
 linked_repo = "homelab"
+webhook_force_deploy = true
 run_directory = "docker/nightscout"
 extra_args = ["--build"]
 environment = """
