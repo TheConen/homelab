@@ -3,6 +3,7 @@ services:
     container_name: "nightscout-mongodb"
     image: "mongo:8.0"
     restart: "unless-stopped"
+    command: "--quiet --wiredTigerCacheSizeGB 0.25"
     volumes:
       - "${DOCKER_DATA_DIR:?error}/${COMPOSE_PROJECT_NAME:?error}/mongo-data:/data/db:z"
       - "${DOCKER_DATA_DIR:?error}/${COMPOSE_PROJECT_NAME:?error}/mongo-config:/data/configdb:z"
