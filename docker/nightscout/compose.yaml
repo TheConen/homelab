@@ -23,7 +23,7 @@ services:
       NODE_ENV: "production"
       TZ: "Europe/Berlin"
       INSECURE_USE_HTTP: "true"
-      MONGO_CONNECTION: "mongodb://${KOMODO_DB_USERNAME:?error}:${KOMODO_DB_PASSWORD:?error}@mongo:27017/nightscout"
+      MONGO_CONNECTION: "mongodb://${NIGHTSCOUT_DB_USERNAME:?error}:${NIGHTSCOUT_DB_PASSWORD:?error}@mongo:27017/nightscout"
       API_SECRET: "${API_SECRET}"
       ENABLE: "careportal rawbg iob cors"
       AUTH_DEFAULT_ROLES: "denied"
