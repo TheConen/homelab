@@ -4,7 +4,8 @@ services:
     image: "mongo:8.0"
     restart: "unless-stopped"
     volumes:
-      - "${DOCKER_DATA_DIR:?error}/${COMPOSE_PROJECT_NAME:?error}/mongodb:/data/db"
+      - "${DOCKER_DATA_DIR:?error}/${COMPOSE_PROJECT_NAME:?error}/mongo-data:/data/db:z"
+      - "${DOCKER_DATA_DIR:?error}/${COMPOSE_PROJECT_NAME:?error}/mongo-config:/data/configdb:z"
     environment:
       MONGO_INITDB_ROOT_USERNAME: "${NIGHTSCOUT_DB_USERNAME:?error}"
       MONGO_INITDB_ROOT_PASSWORD: "${NIGHTSCOUT_DB_PASSWORD:?error}"
