@@ -37,6 +37,8 @@ services:
     image: "traefik:v3.5.0"
     container_name: "traefik"
     restart: "unless-stopped"
+    security_opt:
+      - "label:disable"
     network_mode: "service:gerbil" # Ports appear on the gerbil service
     depends_on:
       pangolin:
@@ -48,6 +50,7 @@ services:
     volumes:
       - "${DOCKER_DATA_DIR:?error}/${COMPOSE_PROJECT_NAME:?error}/traefik:/etc/traefik:ro,z" # Volume to store the Traefik configuration
       - "${DOCKER_DATA_DIR:?error}/${COMPOSE_PROJECT_NAME:?error}/letsencrypt:/letsencrypt:z" # Volume to store the Let's Encrypt certificates
+      - "/var/run/docker.sock:/var/run/docker.sock"
 networks:
   default:
     driver: "bridge"
