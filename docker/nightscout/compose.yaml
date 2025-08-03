@@ -20,11 +20,12 @@ services:
       - "default"
       - "pangolin"
     ports:
-      - "1337:1337"
+      - "8080:8080"
     environment:
       # https://github.com/nightscout/cgm-remote-monitor#environment
       NODE_ENV: "production"
       TZ: "Europe/Berlin"
+      PORT: "8080"
       INSECURE_USE_HTTP: "true"
       MONGO_CONNECTION: "mongodb://${NIGHTSCOUT_DB_USERNAME:?error}:${NIGHTSCOUT_DB_PASSWORD:?error}@mongo:27017/nightscout?authSource=admin"
       API_SECRET: "${API_SECRET}"
