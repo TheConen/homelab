@@ -21,6 +21,8 @@ services:
       - "pangolin"
     ports:
       - "8080:8080"
+    labels:
+      - "traefik.docker.network=pangolin"
     environment:
       # https://github.com/nightscout/cgm-remote-monitor#environment
       NODE_ENV: "production"
