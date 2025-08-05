@@ -30,11 +30,13 @@ KOMODO_DISABLE_USER_REGISTRATION=true
 name = "nightscout"
 [stack.config]
 server = "local"
+run_build = true
 poll_for_updates = true
+destroy_before_deploy = true
 linked_repo = "homelab"
 webhook_force_deploy = true
 run_directory = "docker/nightscout"
-extra_args = ["--build"]
+extra_args = []
 environment = """
 DOCKER_DATA_DIR=[[DOCKER_DATA_DIR]]
 API_SECRET=[[NIGHTSCOUT_API_SECRET]]
@@ -49,6 +51,7 @@ name = "pangolin"
 [stack.config]
 server = "local"
 poll_for_updates = true
+destroy_before_deploy = true
 linked_repo = "homelab"
 run_directory = "docker/pangolin"
 environment = """
