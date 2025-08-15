@@ -18,6 +18,11 @@ services:
     container_name: "komodo-core"
     labels:
       komodo.skip: # Prevent Komodo from stopping with StopAllContainers
+      traefik.enable: true
+      traefik.http.routers.komodo.entrypoints: "websecure-internal"
+      traefik.http.routers.komodo.rule: "Host(`komodo.${TRAEFIK_DOMAINNAME_1:?error}`)"
+      traefik.http.routers.komodo.service: "komodo"
+      traefik.http.services.komodo.loadbalancer.server.port: 9120
     restart: "unless-stopped"
     depends_on:
       - "mongo"
@@ -26,6 +31,7 @@ services:
     networks:
       - "default"
       - "periphery"
+      - "proxy"
     environment:
       KOMODO_DATABASE_ADDRESS: "mongo:27017"
       KOMODO_DATABASE_USERNAME: "${KOMODO_DB_USERNAME:?error}"
@@ -46,3 +52,6 @@ networks:
   periphery:
     external: true
     name: "${PERIPHERY_NETWORK_NAME:-periphery_default}"
+  proxy:
+    external: true
+    name: "${TRAEFIK_NETWORK_NAME:-proxy}"
