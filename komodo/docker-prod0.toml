@@ -47,16 +47,18 @@ NIGHTSCOUT_DB_PASSWORD=[[NIGHTSCOUT_DB_PASSWORD]]
 ##
 
 [[stack]]
-name = "pangolin"
+name = "traefik"
 [stack.config]
 server = "local"
 poll_for_updates = true
 destroy_before_deploy = true
 linked_repo = "homelab"
-run_directory = "docker/pangolin"
+run_directory = "docker/traefik"
 environment = """
 DOCKER_DATA_DIR=[[DOCKER_DATA_DIR]]
 HETZNER_API_KEY=[[HETZNER_API_KEY]]
+DOMAINNAME_1=[[TRAEFIK_DOMAINNAME1]]
+DOMAINNAME_1_EMAIL=[[TRAEFIK_DOMAINNAME1_EMAIL]]
 """
 
 ##
