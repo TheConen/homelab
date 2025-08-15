@@ -91,11 +91,11 @@ configs:
       log:
         # filePath: "/logs/traefik.log"
         level: "INFO"  # (Default: error) DEBUG, INFO, WARN, ERROR, FATAL, PANIC
-        format: "json"  # (Default: common) common, json
+        # format: "json"  # (Default: common) common, json
       
       accessLog:
         filePath: "/logs/access.log"
-        format: "json"  # (Default: common) common, json
+        # format: "json"  # (Default: common) common, json
       
       providers:
         docker:
