@@ -19,17 +19,10 @@ services:
     networks:
       - "proxy"
       - "default"
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.nightscout.entrypoints=websecure-internal,websecure-external"
-      - 'traefik.http.routers.nightscout.rule=Host(`nightscout.theconen.de`)'
-      - "traefik.http.routers.nightscout.service=nightscout"
-      - "traefik.http.services.nightscout.loadbalancer.server.port=8080"
     environment:
       # https://github.com/nightscout/cgm-remote-monitor#environment
       NODE_ENV: "production"
       TZ: "Europe/Berlin"
-      PORT: "8080"
       INSECURE_USE_HTTP: "true"
       MONGO_CONNECTION: "mongodb://${NIGHTSCOUT_DB_USERNAME:?error}:${NIGHTSCOUT_DB_PASSWORD:?error}@mongo:27017/nightscout?authSource=admin"
       API_SECRET: "${API_SECRET}"
@@ -46,6 +39,12 @@ services:
       ALARM_LOW: "off"
       ALARM_URGENT_HIGH: "off"
       ALARM_URGENT_LOW: "off"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.nightscout.entrypoints=websecure-internal,websecure-external"
+      - 'traefik.http.routers.nightscout.rule=Host(`nightscout.theconen.de`)'
+      - "traefik.http.routers.nightscout.service=nightscout"
+      - "traefik.http.services.nightscout.loadbalancer.server.port=1337"
   nightscout-reporter:
     container_name: "nightscout-reporter"
     build: "https://github.com/TheConen/nightscout-reporter-angular.git"
