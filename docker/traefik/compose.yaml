@@ -34,7 +34,7 @@ services:
       - "traefik.http.routers.traefik.service=api@internal"
 networks:
   proxy:
-    name: "proxy"
+    name: "${TRAEFIK_NETWORK_NAME:-proxy}"
 configs:
   traefik_static:
     content: |
@@ -103,7 +103,7 @@ configs:
           # endpoint: "tcp://socket-proxy:2375"
           endpoint: "unix:///var/run/docker.sock"
           exposedByDefault: false
-          network: "proxy"
+          network: "${TRAEFIK_NETWORK_NAME:-proxy}"
         file:
           directory: "/rules"  # Load dynamic configuration from one or more .toml or .yml files in a directory
           watch: true          # Only works on top level files in the rules folder
