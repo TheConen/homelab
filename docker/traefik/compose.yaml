@@ -11,6 +11,8 @@ services:
       - "443:443"
       - "8443:8443"
       - "8090:8090"
+    healthcheck:
+      test: [ 'CMD', 'traefik', 'healthcheck', '--ping' ]
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock:ro" # TODO Use Docker Socket Proxy instead for improved security
       - "${DOCKER_DATA_DIR:?error}/${COMPOSE_PROJECT_NAME:?error}/letsencrypt:/letsencrypt:z" # Volume to store the Let's Encrypt certificates
@@ -83,6 +85,8 @@ configs:
       api:
         dashboard: true
         insecure: true
+      
+      ping: {}
       
       log:
         # filePath: "/logs/traefik.log"
