@@ -72,7 +72,7 @@ configs:
           http3: true
           http:
             tls:
-              certResolver: dns-cloudflare
+              certResolver: letsencrypt
               domains:
                 - main: "${DOMAINNAME_1}"
                   sans:
