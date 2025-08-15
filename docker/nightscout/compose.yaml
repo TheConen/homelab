@@ -22,7 +22,7 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.nightscout.entrypoints=websecure-internal,websecure-external"
-      - "traefik.http.routers.nightscout.rule=Host(`nightscout.$DOMAINNAME_1`)"
+      - 'traefik.http.routers.nightscout.rule=Host(`nightscout.{{ env "DOMAINNAME_1" }}`)'
       - "traefik.http.routers.nightscout.service=nightscout"
       - "traefik.http.services.nightscout.loadbalancer.server.port=8080"
     environment:
@@ -59,7 +59,7 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.nightscout-reporter.entrypoints=websecure-internal,websecure-external"
-      - "traefik.http.routers.nightscout-reporter.rule=Host(`nightscout-reporter.$DOMAINNAME_1`)"
+      - 'traefik.http.routers.nightscout-reporter.rule=Host(`nightscout-reporter.{{ env "DOMAINNAME_1" }}`)'
       - "traefik.http.routers.nightscout-reporter.service=nightscout-reporter"
       - "traefik.http.services.nightscout-reporter.loadbalancer.server.port=80"
 networks:
