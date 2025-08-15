@@ -1,0 +1,119 @@
+services:
+  traefik:
+    container_name: "traefik"
+    image: "traefik:3.5.0"
+    restart: "unless-stopped"
+    security_opt:
+      - "label:disable" # TODO Remove when switching to Docker Socket Proxy
+    ports:
+      - "80:80"
+      - "8080:8080"
+      - "443:443"
+      - "8443:8443"
+      - "8090:8090"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock:ro" # TODO Use Docker Socket Proxy instead for improved security
+      - "${DOCKER_DATA_DIR:?error}/${COMPOSE_PROJECT_NAME:?error}/letsencrypt:/letsencrypt:z" # Volume to store the Let's Encrypt certificates
+      - "${DOCKER_DATA_DIR:?error}/${COMPOSE_PROJECT_NAME:?error}/rules:/rules:z" # Volume to store the Let's Encrypt certificates
+      - "${DOCKER_DATA_DIR:?error}/${COMPOSE_PROJECT_NAME:?error}/logs:/logs:z" # Volume to store the Let's Encrypt certificates
+    environment:
+      TZ: "Europe/Berlin"
+      HETZNER_API_KEY: "${HETZNER_API_KEY:?error}" # Environment variable for Hetzner API key
+      DOMAINNAME_1:  "${DOMAINNAME_1:?error}" # Environment variable for the primary domain name
+    configs:
+      - source: "traefik_static"
+        target: "/etc/traefik/traefik.yaml"
+    networks:
+      proxy:
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.traefik.entrypoints=websecure-internal"
+      - "traefik.http.routers.traefik.rule=Host(`traefik.$DOMAINNAME_1`)"
+      - "traefik.http.routers.traefik.service=api@internal"
+networks:
+  proxy:
+    name: "proxy"
+configs:
+  traefik_static:
+    content: |
+      global:
+        checkNewVersion: true
+        sendAnonymousUsage: false
+      
+      entryPoints:
+        web-external:
+          address: ":8080"
+          http:
+            redirections:
+              entryPoint:
+                to: websecure-external
+                scheme: https
+                permanent: true
+        web-internal:
+          address: ":80"
+          http:
+            redirections:
+              entryPoint:
+                to: websecure-internal
+                scheme: https
+                permanent: true
+        websecure-external:
+          address: ":8443"
+          http3: true
+          http:
+            tls:
+              certResolver: "letsencrypt"
+              domains:
+                - main: "${DOMAINNAME_1}"
+                  sans:
+                    - "*.${DOMAINNAME_1}"
+        websecure-internal:
+          address: ":443"
+          http3: true
+          http:
+            tls:
+              certResolver: dns-cloudflare
+              domains:
+                - main: "${DOMAINNAME_1}"
+                  sans:
+                    - "*.${DOMAINNAME_1}"
+        traefik:
+          address: ":8090"
+      
+      api:
+        dashboard: true
+        insecure: true
+      
+      log:
+        filePath: "/logs/traefik.log"
+        level: "INFO"  # (Default: error) DEBUG, INFO, WARN, ERROR, FATAL, PANIC
+      
+      accessLog:
+        filePath: "/logs/access.log"
+        bufferingSize: 100  # Configuring a buffer of 100 lines
+        filters:
+          statusCodes:
+            - "204-299"
+            - "400-499"
+            - "500-599"
+      
+      providers:
+        docker:
+          # If not using a socket proxy, you could set endpoint: "unix:///var/run/docker.sock"
+          # endpoint: "tcp://socket-proxy:2375"
+          endpoint: "unix:///var/run/docker.sock"
+          exposedByDefault: false
+          network: "proxy"
+        file:
+          directory: "/rules"  # Load dynamic configuration from one or more .toml or .yml files in a directory
+          watch: true          # Only works on top level files in the rules folder
+      
+      certificatesResolvers:
+        letsencrypt:
+          acme:
+            dnsChallenge:
+              provider: "hetzner"
+            email: "${DOMAINNAME_1_EMAIL:?error}"
+            storage: "/letsencrypt/acme.json"
+            # caServer: "https://acme-v02.api.letsencrypt.org/directory"
+            caServer: "https://acme-staging-v02.api.letsencrypt.org/directory"
