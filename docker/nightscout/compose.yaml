@@ -40,11 +40,11 @@ services:
       ALARM_URGENT_HIGH: "off"
       ALARM_URGENT_LOW: "off"
     labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.nightscout.entrypoints=websecure-internal,websecure-external"
-      - "traefik.http.routers.nightscout.rule=Host(`nightscout.${TRAEFIK_DOMAINNAME_1:?error}`)"
-      - "traefik.http.routers.nightscout.service=nightscout"
-      - "traefik.http.services.nightscout.loadbalancer.server.port=1337"
+      traefik.enable: true
+      traefik.http.routers.nightscout.entrypoints: "websecure-internal,websecure-external"
+      traefik.http.routers.nightscout.rule: "Host(`nightscout.${TRAEFIK_DOMAINNAME_1:?error}`)"
+      traefik.http.routers.nightscout.service: "nightscout"
+      traefik.http.services.nightscout.loadbalancer.server.port: 1337
   nightscout-reporter:
     container_name: "nightscout-reporter"
     build: "https://github.com/TheConen/nightscout-reporter-angular.git"
@@ -56,16 +56,16 @@ services:
     networks:
       - "proxy"
     labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.nightscout-reporter.entrypoints=websecure-internal,websecure-external"
-      - "traefik.http.routers.nightscout-reporter.rule=Host(`nightscout-reporter.${TRAEFIK_DOMAINNAME_1:?error}`)"
-      - "traefik.http.routers.nightscout-reporter.service=nightscout-reporter"
-      - "traefik.http.services.nightscout-reporter.loadbalancer.server.port=80"
+      traefik.enable: true
+      traefik.http.routers.nightscout-reporter.entrypoints: "websecure-internal,websecure-external"
+      traefik.http.routers.nightscout-reporter.rule: "Host(`nightscout-reporter.${TRAEFIK_DOMAINNAME_1:?error}`)"
+      traefik.http.routers.nightscout-reporter.service: "nightscout-reporter"
+      traefik.http.services.nightscout-reporter.loadbalancer.server.port: 80
 networks:
   default: {}
   proxy:
     external: true
-    name: "proxy"
+    name: "${TRAEFIK_NETWORK_NAME:-proxy}"
 configs:
   nginx-config:
     content: |
