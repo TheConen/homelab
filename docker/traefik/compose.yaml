@@ -85,17 +85,13 @@ configs:
         insecure: true
       
       log:
-        filePath: "/logs/traefik.log"
+        # filePath: "/logs/traefik.log"
         level: "INFO"  # (Default: error) DEBUG, INFO, WARN, ERROR, FATAL, PANIC
+        format: "json"  # (Default: common) common, json
       
       accessLog:
         filePath: "/logs/access.log"
-        bufferingSize: 100  # Configuring a buffer of 100 lines
-        filters:
-          statusCodes:
-            - "204-299"
-            - "400-499"
-            - "500-599"
+        format: "json"  # (Default: common) common, json
       
       providers:
         docker:
