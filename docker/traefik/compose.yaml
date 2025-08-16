@@ -1,10 +1,21 @@
 services:
+  socket-proxy:
+    image: "lscr.io/linuxserver/socket-proxy:3.2.3"
+    container_name: "socket-proxy"
+    security_opt:
+      - "label:disable"
+    environment:
+      CONTAINERS: 1
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+    restart: "unless-stopped"
+    read_only: true
+    tmpfs:
+      - "/run"
   traefik:
     container_name: "traefik"
     image: "traefik:3.5.0"
     restart: "unless-stopped"
-    security_opt:
-      - "label:disable" # TODO Remove when switching to Docker Socket Proxy
     ports:
       - "80:80"
       - "8080:8080"
@@ -14,7 +25,6 @@ services:
     healthcheck:
       test: [ 'CMD', 'traefik', 'healthcheck', '--ping' ]
     volumes:
-      - "/var/run/docker.sock:/var/run/docker.sock:ro" # TODO Use Docker Socket Proxy instead for improved security
       - "${DOCKER_DATA_DIR:?error}/${COMPOSE_PROJECT_NAME:?error}/letsencrypt:/letsencrypt:z" # Volume to store the Let's Encrypt certificates
       - "${DOCKER_DATA_DIR:?error}/${COMPOSE_PROJECT_NAME:?error}/rules:/rules:z" # Volume to store the Let's Encrypt certificates
       - "${DOCKER_DATA_DIR:?error}/${COMPOSE_PROJECT_NAME:?error}/logs:/logs:z" # Volume to store the Let's Encrypt certificates
@@ -26,6 +36,7 @@ services:
       - source: "traefik_static"
         target: "/etc/traefik/traefik.yaml"
     networks:
+      default:
       proxy:
     labels:
       - "traefik.enable=true"
@@ -33,6 +44,7 @@ services:
       - "traefik.http.routers.traefik.rule=Host(`traefik.$DOMAINNAME_1`)"
       - "traefik.http.routers.traefik.service=api@internal"
 networks:
+  default: {}
   proxy:
     name: "${TRAEFIK_NETWORK_NAME:-proxy}"
 configs:
@@ -103,9 +115,7 @@ configs:
       
       providers:
         docker:
-          # If not using a socket proxy, you could set endpoint: "unix:///var/run/docker.sock"
-          # endpoint: "tcp://socket-proxy:2375"
-          endpoint: "unix:///var/run/docker.sock"
+          endpoint: "tcp://socket-proxy:2375"
           exposedByDefault: false
           network: "${TRAEFIK_NETWORK_NAME:-proxy}"
         file:
