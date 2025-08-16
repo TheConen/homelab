@@ -32,7 +32,7 @@ services:
       traefik.http.middlewares.badger.plugin.badger.apiBaseUrl: "http://pangolin:3000/api/v1"
       traefik.http.middlewares.badger.plugin.badger.userSessionCookieName: "p_session_token"
       traefik.http.middlewares.badger.plugin.badger.accessTokenQueryParam: "p_token"
-      traefik.http.middlewares.badger.plugin.badger.resourceSessionRequestParam: "p_session_request"
+      traefik.http.middlewares.badger.plugin.badger.resourceSessionRequestParam: "resource_session_request_param"
 
 networks:
   proxy:
