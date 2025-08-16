@@ -5,6 +5,9 @@ services:
     restart: "unless-stopped"
     volumes:
       - "${DOCKER_DATA_DIR:?error}/${COMPOSE_PROJECT_NAME:?error}/:/app/config:z"
+    configs:
+        - source: "pangolin_config"
+          target: "/app/config/config.yml"
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:3001/api/v1/"]
       interval: "3s"
@@ -32,9 +35,56 @@ services:
       traefik.http.middlewares.badger.plugin.badger.apiBaseUrl: "http://pangolin:3001/api/v1"
       traefik.http.middlewares.badger.plugin.badger.userSessionCookieName: "p_session_token"
       traefik.http.middlewares.badger.plugin.badger.accessTokenQueryParam: "p_token"
-      traefik.http.middlewares.badger.plugin.badger.resourceSessionRequestParam: "resource_session_request_param"
+      traefik.http.middlewares.badger.plugin.badger.resourceSessionRequestParam: "p_session_request"
 
 networks:
   proxy:
     external: true
     name: "${TRAEFIK_NETWORK_NAME:-proxy}"
+
+configs:
+  pangolin_config:
+    content: |
+      # To see all available options, please visit the docs:
+      # https://docs.fossorial.io/Pangolin/Configuration/config
+
+      app:
+        dashboard_url: "https://pangolin.${TRAEFIK_DOMAINNAME_1:?error}"
+        log_level: "info"
+        save_logs: true
+        log_failed_attempts: true
+
+      domains:
+        domain1:
+          base_domain: "${TRAEFIK_DOMAINNAME_1:?error}"
+          cert_resolver: "letsencrypt"
+          prefer_wildcart_cert: true
+
+      server:
+        secret: "${SERVER_SECRET:?error}"
+        internal_hostname: "pangolin"
+        session_cookie_name: "p_session_token"
+        resource_access_token_param: "p_token"
+        resource_session_request_param: "p_session_request"
+        cors:
+          origins: ["https://pangolin.${TRAEFIK_DOMAINNAME_1:?error}"]
+          methods: ["GET", "POST", "PUT", "DELETE", "PATCH"]
+          allowed_headers: ["X-CSRF-Token", "Content-Type"]
+          credentials: true
+
+      gerbil:
+        start_port: 51820
+        base_endpoint: "pangolin.${TRAEFIK_DOMAINNAME_1:?error}"
+
+      email:
+        smtp_host: "${SMTP_HOST:?error}"
+        smtp_port: 587
+        smtp_user: "${SMTP_USER:?error}"
+        smtp_pass: "${SMTP_PASSWORD:?error}"
+        no_reply: "${SMTP_NO_REPLY_EMAIL:?error}"
+
+      flags:
+        require_email_verification: true
+        disable_signup_without_invite: true
+        disable_user_create_org: true
+        allow_raw_resources: true
