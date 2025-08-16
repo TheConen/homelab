@@ -4,6 +4,8 @@ services:
     hostname: "kopia"
     container_name: "kopia"
     restart: "unless-stopped"
+    security_opt:
+      - "label:disable" # Disable SELinux labels for compatibility with Kopia
     command:
       - "server"
       - "start"
@@ -25,11 +27,11 @@ services:
       traefik.http.services.kopia.loadbalancer.server.port: 51515
     volumes:
       # Mount local folders needed by kopia
-      - "${DOCKER_DATA_DIR:?error}/${COMPOSE_PROJECT_NAME:?error}/config:/app/config:Z"
-      - "${DOCKER_DATA_DIR:?error}/${COMPOSE_PROJECT_NAME:?error}/cache:/app/cache:Z"
-      - "${DOCKER_DATA_DIR:?error}/${COMPOSE_PROJECT_NAME:?error}/logs:/app/logs:Z"
+      - "${DOCKER_DATA_DIR:?error}/${COMPOSE_PROJECT_NAME:?error}/config:/app/config"
+      - "${DOCKER_DATA_DIR:?error}/${COMPOSE_PROJECT_NAME:?error}/cache:/app/cache"
+      - "${DOCKER_DATA_DIR:?error}/${COMPOSE_PROJECT_NAME:?error}/logs:/app/logs"
       # Mount local folders to snapshot
-      - "${DOCKER_DATA_DIR:?error}:/data:ro,z"
+      - "${DOCKER_DATA_DIR:?error}:/data:ro"
       # Mount repository location
       - "repository:/repository"
 volumes:
