@@ -90,7 +90,7 @@ configs:
       
       log:
         # filePath: "/logs/traefik.log"
-        level: "DEBUG"  # (Default: error) DEBUG, INFO, WARN, ERROR, FATAL, PANIC
+        level: "INFO"  # (Default: error) DEBUG, INFO, WARN, ERROR, FATAL, PANIC
         # format: "json"  # (Default: common) common, json
         maxSize: 100
         maxBackups: 3
