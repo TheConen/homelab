@@ -28,46 +28,6 @@ TRAEFIK_DOMAINNAME_1=[[TRAEFIK_DOMAINNAME_1]]
 ##
 
 [[stack]]
-name = "nightscout"
-[stack.config]
-server = "local"
-run_build = true
-poll_for_updates = true
-destroy_before_deploy = true
-linked_repo = "homelab"
-webhook_force_deploy = true
-run_directory = "docker/nightscout"
-environment = """
-DOCKER_DATA_DIR=[[DOCKER_DATA_DIR]]
-API_SECRET=[[NIGHTSCOUT_API_SECRET]]
-NIGHTSCOUT_DB_USERNAME=[[NIGHTSCOUT_DB_USERNAME]]
-NIGHTSCOUT_DB_PASSWORD=[[NIGHTSCOUT_DB_PASSWORD]]
-TRAEFIK_DOMAINNAME_1=[[TRAEFIK_DOMAINNAME_1]]
-"""
-
-##
-
-[[stack]]
-name = "pangolin"
-[stack.config]
-server = "local"
-poll_for_updates = true
-destroy_before_deploy = true
-linked_repo = "homelab"
-run_directory = "docker/pangolin"
-environment = """
-DOCKER_DATA_DIR=[[DOCKER_DATA_DIR]]
-TRAEFIK_DOMAINNAME_1=[[TRAEFIK_DOMAINNAME_1]]
-SERVER_SECRET=[[PANGOLIN_SERVER_SECRET]]
-SMTP_HOST=[[PANGOLIN_SMTP_HOST]]
-SMTP_USER=[[PANGOLIN_SMTP_USER]]
-SMTP_PASSWORD=[[PANGOLIN_SMTP_PASSWORD]]
-SMTP_NO_REPLY_EMAIL=[[PANGOLIN_SMTP_NO_REPLY_EMAIL]]
-"""
-
-##
-
-[[stack]]
 name = "periphery"
 [stack.config]
 server = "local"
@@ -94,6 +54,46 @@ DOCKER_DATA_DIR=[[DOCKER_DATA_DIR]]
 HETZNER_API_KEY=[[TRAEFIK_HETZNER_API_KEY]]
 DOMAINNAME_1=[[TRAEFIK_DOMAINNAME_1]]
 DOMAINNAME_1_EMAIL=[[TRAEFIK_DOMAINNAME_1_EMAIL]]
+"""
+
+##
+
+[[stack]]
+name = "pangolin"
+[stack.config]
+server = "local"
+poll_for_updates = true
+destroy_before_deploy = true
+linked_repo = "homelab"
+run_directory = "docker/pangolin"
+environment = """
+DOCKER_DATA_DIR=[[DOCKER_DATA_DIR]]
+TRAEFIK_DOMAINNAME_1=[[TRAEFIK_DOMAINNAME_1]]
+SERVER_SECRET=[[PANGOLIN_SERVER_SECRET]]
+SMTP_HOST=[[PANGOLIN_SMTP_HOST]]
+SMTP_USER=[[PANGOLIN_SMTP_USER]]
+SMTP_PASSWORD=[[PANGOLIN_SMTP_PASSWORD]]
+SMTP_NO_REPLY_EMAIL=[[PANGOLIN_SMTP_NO_REPLY_EMAIL]]
+"""
+
+##
+
+[[stack]]
+name = "nightscout"
+[stack.config]
+server = "local"
+run_build = true
+poll_for_updates = true
+destroy_before_deploy = true
+linked_repo = "homelab"
+webhook_force_deploy = true
+run_directory = "docker/nightscout"
+environment = """
+DOCKER_DATA_DIR=[[DOCKER_DATA_DIR]]
+API_SECRET=[[NIGHTSCOUT_API_SECRET]]
+NIGHTSCOUT_DB_USERNAME=[[NIGHTSCOUT_DB_USERNAME]]
+NIGHTSCOUT_DB_PASSWORD=[[NIGHTSCOUT_DB_PASSWORD]]
+TRAEFIK_DOMAINNAME_1=[[TRAEFIK_DOMAINNAME_1]]
 """
 
 ##
