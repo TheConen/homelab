@@ -75,6 +75,7 @@ linked_repo = "homelab"
 run_directory = "docker/pangolin"
 environment = """
 DOCKER_DATA_DIR=[[DOCKER_DATA_DIR]]
+TRAEFIK_DOMAINNAME_1=[[TRAEFIK_DOMAINNAME_1]]
 """
 
 ##
