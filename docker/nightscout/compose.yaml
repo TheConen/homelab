@@ -19,6 +19,8 @@ services:
     networks:
       - "proxy"
       - "default"
+    ports:
+      - "1337:1337"
     environment:
       # https://github.com/nightscout/cgm-remote-monitor#environment
       NODE_ENV: "production"
