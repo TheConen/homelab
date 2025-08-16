@@ -27,7 +27,7 @@ services:
       HOSTNAME: "0.0.0.0"
       INSECURE_USE_HTTP: "true"
       MONGO_CONNECTION: "mongodb://${NIGHTSCOUT_DB_USERNAME:?error}:${NIGHTSCOUT_DB_PASSWORD:?error}@mongo:27017/nightscout?authSource=admin"
-      API_SECRET: "${API_SECRET}"
+      API_SECRET: "${API_SECRET:?error}"
       ENABLE: "careportal rawbg iob cors"
       AUTH_DEFAULT_ROLES: "denied"
       DISPLAY_UNITS: "mg/dl"
