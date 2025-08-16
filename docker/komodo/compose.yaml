@@ -19,9 +19,13 @@ services:
     labels:
       komodo.skip: # Prevent Komodo from stopping with StopAllContainers
       traefik.enable: true
-      traefik.http.routers.komodo.entrypoints: "websecure-internal"
-      traefik.http.routers.komodo.rule: "Host(`komodo.${TRAEFIK_DOMAINNAME_1:?error}`)"
-      traefik.http.routers.komodo.service: "komodo"
+      traefik.http.routers.komodo-internal.entrypoints: "websecure-internal"
+      traefik.http.routers.komodo-external.entrypoints: "websecure-external"
+      traefik.http.routers.komodo-internal.rule: "Host(`komodo.${TRAEFIK_DOMAINNAME_1:?error}`)"
+      traefik.http.routers.komodo-external.rule: "Host(`komodo.${TRAEFIK_DOMAINNAME_1:?error}`)"
+      traefik.http.routers.komodo-intenral.service: "komodo"
+      traefik.http.routers.komodo-external.service: "komodo"
+      traefik.http.routers.komodo-external.middlewares: "badger@docker"
       traefik.http.services.komodo.loadbalancer.server.port: 9120
     restart: "unless-stopped"
     depends_on:
