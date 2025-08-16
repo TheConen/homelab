@@ -1,9 +1,24 @@
 {
-  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": [
-    "config:recommended"
-  ],
-  "reviewers": [
-    "TheConen"
-  ]
+    "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+    "extends": [
+        "config:recommended",
+        "docker:enableMajor"
+    ],
+    "reviewers": [
+        "TheConen"
+    ],
+    "assignees": [
+        "TheConen"
+    ],
+    "packageRules": [
+        {
+            "matchDatasources": [
+                "docker"
+            ],
+            "matchPackageNames": [
+                "kopia/kopia"
+            ],
+            "versioning": "semver"
+        }
+    ]
 }
