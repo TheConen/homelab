@@ -15,10 +15,10 @@ services:
     labels:
       traefik.enable: true
       traefik.http.routers.pangolin-next.entrypoints: "websecure-internal,websecure-external"
-      traefik.http.routers.pangolin-next.rule: "Host(`pangolin.${TRAEFIK_DOMAINNAME_1:?error}` && !PathPrefix(`/api/v1`))"
+      traefik.http.routers.pangolin-next.rule: "Host(`pangolin.${TRAEFIK_DOMAINNAME_1:?error}`) && !PathPrefix(`/api/v1`)"
       traefik.http.routers.pangolin-next.service: "pangolin-next"
       traefik.http.routers.pangolin-api.entrypoints: "websecure-internal,websecure-external"
-      traefik.http.routers.pangolin-api.rule: "Host(`pangolin.${TRAEFIK_DOMAINNAME_1:?error}` && PathPrefix(`/api/v1`))"
+      traefik.http.routers.pangolin-api.rule: "Host(`pangolin.${TRAEFIK_DOMAINNAME_1:?error}`) && PathPrefix(`/api/v1`)"
       traefik.http.routers.pangolin-api.service: "pangolin-next"
       traefik.http.routers.pangolin-ws.entrypoints: "websecure-internal,websecure-external"
       traefik.http.routers.pangolin-ws.rule: "Host(`pangolin.${TRAEFIK_DOMAINNAME_1:?error}`)"
