@@ -1,6 +1,6 @@
 services:
   kopia:
-    image: "kopia/kopia:0.21.1"
+    image: "kopia/kopia:20250815.0.15307"
     hostname: "${HOSTNAME?error}"
     container_name: "kopia"
     restart: "unless-stopped"
