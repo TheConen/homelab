@@ -24,6 +24,10 @@ services:
       traefik.http.routers.pangolin-api.rule: "Host(`pangolin.${TRAEFIK_DOMAINNAME_1:?error}`) && PathPrefix(`/api/v1`)"
       traefik.http.routers.pangolin-api.service: "pangolin-api"
       traefik.http.services.pangolin-api.loadbalancer.server.port: 3000
+      # WebSocket
+      traefik.http.routers.pangolin-ws.entrypoints: "websecure-internal,websecure-external"
+      traefik.http.routers.pangolin-ws.rule: "Host(`pangolin.${TRAEFIK_DOMAINNAME_1:?error}`) && PathPrefix(`/ws`)"
+      traefik.http.routers.pangolin-ws.service: "pangolin-api" # Reuse the API service for WebSocket
 
 networks:
   proxy:
