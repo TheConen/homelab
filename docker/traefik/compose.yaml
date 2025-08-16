@@ -27,7 +27,6 @@ services:
         target: "/etc/traefik/traefik.yaml"
     networks:
       proxy:
-      pangolin:
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.traefik.entrypoints=websecure-internal"
@@ -36,9 +35,6 @@ services:
 networks:
   proxy:
     name: "${TRAEFIK_NETWORK_NAME:-proxy}"
-  pangolin:
-    external: true
-    name: "${PANGOLIN_NETWORK_NAME:-pangolin}"
 configs:
   traefik_static:
     content: |
