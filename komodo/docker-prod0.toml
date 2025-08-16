@@ -37,30 +37,12 @@ destroy_before_deploy = true
 linked_repo = "homelab"
 webhook_force_deploy = true
 run_directory = "docker/nightscout"
-extra_args = []
 environment = """
 DOCKER_DATA_DIR=[[DOCKER_DATA_DIR]]
 API_SECRET=[[NIGHTSCOUT_API_SECRET]]
 NIGHTSCOUT_DB_USERNAME=[[NIGHTSCOUT_DB_USERNAME]]
 NIGHTSCOUT_DB_PASSWORD=[[NIGHTSCOUT_DB_PASSWORD]]
 TRAEFIK_DOMAINNAME_1=[[TRAEFIK_DOMAINNAME_1]]
-"""
-
-##
-
-[[stack]]
-name = "traefik"
-[stack.config]
-server = "local"
-poll_for_updates = true
-destroy_before_deploy = true
-linked_repo = "homelab"
-run_directory = "docker/traefik"
-environment = """
-DOCKER_DATA_DIR=[[DOCKER_DATA_DIR]]
-HETZNER_API_KEY=[[TRAEFIK_HETZNER_API_KEY]]
-DOMAINNAME_1=[[TRAEFIK_DOMAINNAME_1]]
-DOMAINNAME_1_EMAIL=[[TRAEFIK_DOMAINNAME_1_EMAIL]]
 """
 
 ##
@@ -99,6 +81,23 @@ PERIPHERY_PASSKEYS=[[PERIPHERY_PASSKEYS]]
 
 ##
 
+[[stack]]
+name = "traefik"
+[stack.config]
+server = "local"
+poll_for_updates = true
+destroy_before_deploy = true
+linked_repo = "homelab"
+run_directory = "docker/traefik"
+environment = """
+DOCKER_DATA_DIR=[[DOCKER_DATA_DIR]]
+HETZNER_API_KEY=[[TRAEFIK_HETZNER_API_KEY]]
+DOMAINNAME_1=[[TRAEFIK_DOMAINNAME_1]]
+DOMAINNAME_1_EMAIL=[[TRAEFIK_DOMAINNAME_1_EMAIL]]
+"""
+
+##
+
 [[repo]]
 name = "homelab"
 [repo.config]
@@ -132,6 +131,15 @@ enabled = true
 executions = [
   { execution.type = "BatchDeployStackIfChanged", execution.params.pattern = "*", enabled = true }
 ]
+
+##
+
+[[alerter]]
+name = "Discord"
+[alerter.config]
+enabled = true
+endpoint.type = "Discord"
+endpoint.params.url = "[[DISCORD_ALERTS_WEBHOOK]]"
 
 ##
 
