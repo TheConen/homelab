@@ -14,18 +14,15 @@ services:
       proxy:
     labels:
       traefik.enable: true
+      # Frontend (Next.js)
       traefik.http.routers.pangolin-next.entrypoints: "websecure-internal,websecure-external"
       traefik.http.routers.pangolin-next.rule: "Host(`pangolin.${TRAEFIK_DOMAINNAME_1:?error}`) && !PathPrefix(`/api/v1`)"
       traefik.http.routers.pangolin-next.service: "pangolin-next"
+      traefik.http.services.pangolin-next.loadbalancer.server.port: 3002
+      # API
       traefik.http.routers.pangolin-api.entrypoints: "websecure-internal,websecure-external"
       traefik.http.routers.pangolin-api.rule: "Host(`pangolin.${TRAEFIK_DOMAINNAME_1:?error}`) && PathPrefix(`/api/v1`)"
-      traefik.http.routers.pangolin-api.service: "pangolin-next"
-      traefik.http.routers.pangolin-ws.entrypoints: "websecure-internal,websecure-external"
-      traefik.http.routers.pangolin-ws.rule: "Host(`pangolin.${TRAEFIK_DOMAINNAME_1:?error}`)"
-      traefik.http.routers.pangolin-ws.service: "pangolin-api"
-      traefik.http.services.pangolin-next.service: "pangolin"
-      traefik.http.services.pangolin-next.loadbalancer.server.port: 3002
-      traefik.http.services.pangolin-api.service: "pangolin"
+      traefik.http.routers.pangolin-api.service: "pangolin-api"
       traefik.http.services.pangolin-api.loadbalancer.server.port: 3000
 
 networks:
