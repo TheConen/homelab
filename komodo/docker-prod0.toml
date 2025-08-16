@@ -139,7 +139,7 @@ name = "Discord"
 [alerter.config]
 enabled = true
 endpoint.type = "Discord"
-endpoint.params.url = "[[DISCORD_ALERTS_WEBHOOK]]"
+endpoint.params.url = "[[KOMODO_DISCORD_ALERTS_WEBHOOK]]"
 
 ##
 
