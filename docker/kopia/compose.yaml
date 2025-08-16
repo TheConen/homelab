@@ -1,0 +1,45 @@
+services:
+  kopia:
+    image: "kopia/kopia:0.21.1"
+    hostname: "kopia"
+    container_name: "kopia"
+    restart: "unless-stopped"
+    command:
+      - "server"
+      - "start"
+      - "--disable-csrf-token-checks"
+      - "--insecure"
+      - "--address=0.0.0.0:51515"
+      - "--server-username=${SERVER_USERNAME?error}"
+      - "--server-password=${SERVER_PASSWORD?error}"
+    environment:
+      KOPIA_PASSWORD: "${REPOSITORY_PASSWORD:?error}"
+      TZ: "Europe/Berlin"
+    networks:
+      proxy:
+    labels:
+      traefik.enable: true
+      traefik.http.routers.kopia-internal.entrypoints: "websecure-internal"
+      traefik.http.routers.kopia-internal.rule: "Host(`kopia.${TRAEFIK_DOMAINNAME_1:?error}`)"
+      traefik.http.routers.kopia-internal.service: "kopia"
+      traefik.http.services.kopia.loadbalancer.server.port: 51515
+    volumes:
+      # Mount local folders needed by kopia
+      - "${DOCKER_DATA_DIR:?error}/${COMPOSE_PROJECT_NAME:?error}/config:/app/config:Z"
+      - "${DOCKER_DATA_DIR:?error}/${COMPOSE_PROJECT_NAME:?error}/cache:/app/cache:Z"
+      - "${DOCKER_DATA_DIR:?error}/${COMPOSE_PROJECT_NAME:?error}/logs:/app/logs:Z"
+      # Mount local folders to snapshot
+      - "${DOCKER_DATA_DIR:?error}:/data:ro,z"
+      # Mount repository location
+      - "repository:/repository"
+volumes:
+  repository:
+    driver: "local"
+    driver_opts:
+      type: "cifs"
+      o: "username=${SMB_USERNAME:?error},password=${SMB_PASSWORD:?error},rw,noperm,file_mode=0777,dir_mode=0777"
+      device: "//${SMB_HOST:?error}/${SMB_PATH:?error}"
+networks:
+  proxy:
+    external: true
+    name: "${TRAEFIK_NETWORK_NAME:-proxy}"
