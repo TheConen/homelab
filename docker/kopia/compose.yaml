@@ -1,7 +1,7 @@
 services:
   kopia:
     image: "kopia/kopia:0.21.1"
-    hostname: "kopia"
+    hostname: "${HOSTNAME?error}"
     container_name: "kopia"
     restart: "unless-stopped"
     security_opt:
@@ -16,6 +16,7 @@ services:
       - "--server-password=${SERVER_PASSWORD?error}"
     environment:
       KOPIA_PASSWORD: "${REPOSITORY_PASSWORD:?error}"
+      USER: "${USER:-kopia}"
       TZ: "Europe/Berlin"
     networks:
       proxy:
