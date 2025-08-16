@@ -28,6 +28,11 @@ services:
       traefik.http.routers.pangolin-ws.entrypoints: "websecure-internal,websecure-external"
       traefik.http.routers.pangolin-ws.rule: "Host(`pangolin.${TRAEFIK_DOMAINNAME_1:?error}`)"
       traefik.http.routers.pangolin-ws.service: "pangolin-api" # Reuse the API service for WebSocket
+      # Badger
+      traefik.http.middlewares.badger.apiBaseUrl: "http://pangolin:3000/api/v1"
+      traefik.http.middlewares.badger.userSessionCookieName: "p_session_token"
+      traefik.http.middlewares.badger.accessTokenQueryParam: "p_token"
+      traefik.http.middlewares.badger.resourceSessionRequestParam: "p_session_request"
 
 networks:
   proxy:

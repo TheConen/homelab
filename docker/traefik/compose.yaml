@@ -92,6 +92,10 @@ configs:
         # filePath: "/logs/traefik.log"
         level: "DEBUG"  # (Default: error) DEBUG, INFO, WARN, ERROR, FATAL, PANIC
         # format: "json"  # (Default: common) common, json
+        maxSize: 100
+        maxBackups: 3
+        maxAge: 3
+        compress: true
       
       accessLog:
         filePath: "/logs/access.log"
@@ -116,3 +120,9 @@ configs:
             email: "${DOMAINNAME_1_EMAIL:?error}"
             storage: "/letsencrypt/acme.json"
             caServer: "https://acme-v02.api.letsencrypt.org/directory"
+      
+      experimental:
+        plugins:
+          badger:
+            moduleName: "github.com/fosrl/badger"
+            version: "v1.2.0"
