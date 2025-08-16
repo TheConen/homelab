@@ -59,10 +59,13 @@ services:
       - "proxy"
     labels:
       traefik.enable: true
-      traefik.http.routers.nightscout-reporter.entrypoints: "websecure-internal,websecure-external"
-      traefik.http.routers.nightscout-reporter.rule: "Host(`nightscout-reporter.${TRAEFIK_DOMAINNAME_1:?error}`)"
-      traefik.http.routers.nightscout-reporter.service: "nightscout-reporter"
-      traefik.http.routers.nightscout-reporter.middlewares: "badger@docker"
+      traefik.http.routers.nightscout-reporter-internal.entrypoints: "websecure-internal"
+      traefik.http.routers.nightscout-reporter-external.entrypoints: "websecure-external"
+      traefik.http.routers.nightscout-reporter-internal.rule: "Host(`nightscout-reporter.${TRAEFIK_DOMAINNAME_1:?error}`)"
+      traefik.http.routers.nightscout-reporter-external.rule: "Host(`nightscout-reporter.${TRAEFIK_DOMAINNAME_1:?error}`)"
+      traefik.http.routers.nightscout-reporter-internal.service: "nightscout-reporter"
+      traefik.http.routers.nightscout-reporter-external.service: "nightscout-reporter"
+      traefik.http.routers.nightscout-reporter-external.middlewares: "badger@docker"
       traefik.http.services.nightscout-reporter.loadbalancer.server.port: 80
 networks:
   default: {}
