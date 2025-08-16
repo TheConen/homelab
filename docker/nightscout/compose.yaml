@@ -43,9 +43,13 @@ services:
       ALARM_URGENT_LOW: "off"
     labels:
       traefik.enable: true
-      traefik.http.routers.nightscout.entrypoints: "websecure-internal,websecure-external"
-      traefik.http.routers.nightscout.rule: "Host(`nightscout.${TRAEFIK_DOMAINNAME_1:?error}`)"
-      traefik.http.routers.nightscout.service: "nightscout"
+      traefik.http.routers.nightscout-internal.entrypoints: "websecure-internal"
+      traefik.http.routers.nightscout-external.entrypoints: "websecure-external"
+      traefik.http.routers.nightscout-internal.rule: "Host(`nightscout.${TRAEFIK_DOMAINNAME_1:?error}`)"
+      traefik.http.routers.nightscout-external.rule: "Host(`nightscout.${TRAEFIK_DOMAINNAME_1:?error}`)"
+      traefik.http.routers.nightscout-internal.service: "nightscout"
+      traefik.http.routers.nightscout-external.service: "nightscout"
+      traefik.http.routers.nightscout-external.middlewares: "badger@docker"
       traefik.http.services.nightscout.loadbalancer.server.port: 8080
   nightscout-reporter:
     container_name: "nightscout-reporter"
