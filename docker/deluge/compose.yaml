@@ -1,6 +1,6 @@
 services:
   deluge:
-    image: "linuxserver/deluge:2.2.0"
+    image: "lscr.io/linuxserver/deluge:2.2.0"
     container_name: "deluge"
     restart: "unless-stopped"
     ports:
