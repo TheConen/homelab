@@ -18,8 +18,18 @@
             "matchPackageNames": [
                 "kopia/kopia"
             ],
-            "versioning": "semver",
+            "versioning": "docker",
             "allowedVersions": "<10000000"
+        },
+        {
+            "matchDatasources": [
+                "docker"
+            ],
+            "matchPackageNames": [
+                "lscr.io/linuxserver/deluge"
+            ],
+            "versioning": "docker",
+            "allowedVersions": "!/18.04.1/"
         }
     ]
 }
