@@ -7,8 +7,8 @@ services:
       - "44444:44444"
     volumes:
       - "${DOCKER_DATA_DIR:?error}/${COMPOSE_PROJECT_NAME:?error}/config:/config"
-      - "deluge-downloads:/downloads"
-      - "deluge-completed:/completed"
+      - "downloads:/downloads"
+      - "completed:/completed"
     environment:
       PGID: "${PGID:?error}"
       PUID: "${PUID:?error}"
