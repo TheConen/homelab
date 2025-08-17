@@ -1,6 +1,6 @@
 services:
   kopia:
-    image: "kopia/kopia:0.21.1"
+    image: "kopia/kopia:20250817.0.34129"
     hostname: "${HOSTNAME?error}"
     domainname: "${TRAEFIK_DOMAINNAME_1:?error}"
     container_name: "kopia"
