@@ -6,7 +6,7 @@ services:
     ports:
       - "44444:44444"
     volumes:
-      - "${DOCKER_DATA_DIR:?error}/${COMPOSE_PROJECT_NAME:?error}/config:/config"
+      - "${DOCKER_DATA_DIR:?error}/${COMPOSE_PROJECT_NAME:?error}/config:/config:z"
       - "downloads:/downloads"
       - "completed:/completed"
     environment:
