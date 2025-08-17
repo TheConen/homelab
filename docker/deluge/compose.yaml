@@ -23,13 +23,13 @@ services:
       traefik.http.routers.deluge-internal.service: "deluge"
       traefik.http.services.deluge.loadbalancer.server.port: 8112
 volumes:
-  deluge-downloads:
+  downloads:
     driver: "local"
     driver_opts:
       type: "cifs"
       o: "username=${SMB_USERNAME:?error},password=${SMB_PASSWORD:?error},rw,noperm,file_mode=0777,dir_mode=0777"
       device: "//${SMB_HOST:?error}/${SMB_PATH_DOWNLOADS:?error}"
-  deluge-completed:
+  completed:
     driver: "local"
     driver_opts:
       type: "cifs"

@@ -37,7 +37,7 @@ services:
       # Mount repository location
       - "kopia-repository:/repository"
 volumes:
-  kopia-repository:
+  repository:
     driver: "local"
     driver_opts:
       type: "cifs"
