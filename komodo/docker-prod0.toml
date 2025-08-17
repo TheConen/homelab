@@ -82,7 +82,6 @@ SMTP_NO_REPLY_EMAIL=[[PANGOLIN_SMTP_NO_REPLY_EMAIL]]
 name = "kopia"
 [stack.config]
 server = "local"
-run_build = true
 poll_for_updates = true
 destroy_before_deploy = true
 linked_repo = "homelab"
