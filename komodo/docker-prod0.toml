@@ -102,6 +102,27 @@ SMB_PATH=[[KOPIA_SMB_PATH]]
 ##
 
 [[stack]]
+name = "deluge"
+[stack.config]
+server = "local"
+poll_for_updates = true
+destroy_before_deploy = true
+linked_repo = "homelab"
+run_directory = "docker/deluge"
+environment = """
+DOCKER_DATA_DIR=[[DOCKER_DATA_DIR]]
+TRAEFIK_DOMAINNAME_1=[[TRAEFIK_DOMAINNAME_1]]
+PGID=[[DELUGE_PGID]]
+PUID=[[DELUGE_PUID]]
+SMB_USERNAME=[[KOPIA_SMB_USERNAME]]
+SMB_PASSWORD=[[KOPIA_SMB_PASSWORD]]
+SMB_PATH_DOWNLOADS=[[DELUGE_SMB_PATH_DOWNLOADS]]
+SMB_PATH_COMPLETED=[[DELUGE_SMB_PATH_COMPLETED]]
+"""
+
+##
+
+[[stack]]
 name = "nightscout"
 [stack.config]
 server = "local"

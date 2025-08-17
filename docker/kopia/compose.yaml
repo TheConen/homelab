@@ -35,9 +35,9 @@ services:
       # Mount local folders to snapshot
       - "${DOCKER_DATA_DIR:?error}:/data:ro"
       # Mount repository location
-      - "repository:/repository"
+      - "kopia-repository:/repository"
 volumes:
-  repository:
+  kopia-repository:
     driver: "local"
     driver_opts:
       type: "cifs"
