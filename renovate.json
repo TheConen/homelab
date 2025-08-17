@@ -29,7 +29,7 @@
                 "lscr.io/linuxserver/deluge"
             ],
             "versioning": "docker",
-            "allowedVersions": "!/^18\\.04\\.1/$"
+            "allowedVersions": "!/^18\\.04\\.1$/"
         }
     ]
 }
