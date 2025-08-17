@@ -18,7 +18,8 @@
             "matchPackageNames": [
                 "kopia/kopia"
             ],
-            "versioning": "semver"
+            "versioning": "semver",
+            "allowedVersions": "<10000000"
         }
     ]
 }
