@@ -2,7 +2,7 @@ services:
   periphery:
     profiles:
       - "internal" # Use this profile when Komodo runs on the same host as Periphery.
-    image: "ghcr.io/moghtech/komodo-periphery:1.18.4"
+    image: "ghcr.io/moghtech/komodo-periphery:1.19.0"
     container_name: "periphery"
     labels:
       komodo.skip: # Prevent Komodo from stopping with StopAllContainers
@@ -26,7 +26,7 @@ services:
   periphery-exposed:
     profiles:
       - "exposed" # Use this profile when Komodo runs on a different host than Periphery.
-    image: "ghcr.io/moghtech/komodo-periphery:1.18.4"
+    image: "ghcr.io/moghtech/komodo-periphery:1.19.0"
     container_name: "periphery"
     labels:
       komodo.skip: # Prevent Komodo from stopping with StopAllContainers
