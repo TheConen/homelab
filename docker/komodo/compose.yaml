@@ -41,11 +41,15 @@ services:
       KOMODO_DATABASE_USERNAME: "${KOMODO_DB_USERNAME:?error}"
       KOMODO_DATABASE_PASSWORD: "${KOMODO_DB_PASSWORD:?error}"
       KOMODO_FIRST_SERVER: "https://periphery:8120"
+      KOMODO_FIRST_SERVER_NAME: "local"
       KOMODO_PASSKEY: "${KOMODO_PASSKEY:?error}"
       KOMODO_HOST: "${KOMODO_HOST:?error}"
       KOMODO_WEBHOOK_SECRET: "${KOMODO_WEBHOOK_SECRET:?error}"
       KOMODO_LOCAL_AUTH: "${KOMODO_LOCAL_AUTH:-true}"
       KOMODO_DISABLE_USER_REGISTRATION: "${KOMODO_DISABLE_USER_REGISTRATION:-true}"
+      KOMODO_DISABLE_NON_ADMIN_CREATE: "${KOMODO_DISABLE_NON_ADMIN_CREATE:-true}"
+      # KOMODO_INIT_ADMIN_USERNAME: "${KOMODO_INIT_ADMIN_USERNAME:?error}" # Only needed for bootstrapping
+      # KOMODO_INIT_ADMIN_PASSWORD: "${KOMODO_INIT_ADMIN_PASSWORD:?error}" # Only needed for bootstrapping
       TZ: "${TZ:-Europe/Berlin}"
     volumes:
       - "${DOCKER_DATA_DIR:?error}/${COMPOSE_PROJECT_NAME:?error}/backups:/backups:z"
