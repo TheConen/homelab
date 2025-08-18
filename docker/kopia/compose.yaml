@@ -1,7 +1,7 @@
 services:
   kopia:
     image: "kopia/kopia:0.21.1"
-    hostname: "${HOSTNAME:?error}"
+    hostname: "${STATIC_HOSTNAME:?error}"
     domainname: "${TRAEFIK_DOMAINNAME_1:?error}"
     container_name: "kopia"
     restart: "unless-stopped"
