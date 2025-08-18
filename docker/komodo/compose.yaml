@@ -14,7 +14,7 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: "${KOMODO_DB_PASSWORD:?error}"
 
   core:
-    image: "ghcr.io/moghtech/komodo-core:1.18.4"
+    image: "ghcr.io/moghtech/komodo-core:1.19.0"
     container_name: "komodo-core"
     labels:
       komodo.skip: # Prevent Komodo from stopping with StopAllContainers
@@ -48,9 +48,7 @@ services:
       KOMODO_DISABLE_USER_REGISTRATION: "${KOMODO_DISABLE_USER_REGISTRATION:-true}"
       TZ: "${TZ:-Europe/Berlin}"
     volumes:
-      - "repo-cache:/repo-cache"
-volumes:
-  repo-cache:
+      - "${DOCKER_DATA_DIR:?error}/${COMPOSE_PROJECT_NAME:?error}:/backups:z"
 networks:
   default:
   periphery:
