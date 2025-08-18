@@ -26,8 +26,8 @@ services:
       test: [ 'CMD', 'traefik', 'healthcheck', '--ping' ]
     volumes:
       - "${DOCKER_DATA_DIR:?error}/${COMPOSE_PROJECT_NAME:?error}/letsencrypt:/letsencrypt:z" # Volume to store the Let's Encrypt certificates
-      - "${DOCKER_DATA_DIR:?error}/${COMPOSE_PROJECT_NAME:?error}/rules:/rules:z" # Volume to store the Let's Encrypt certificates
-      - "${DOCKER_DATA_DIR:?error}/${COMPOSE_PROJECT_NAME:?error}/logs:/logs:z" # Volume to store the Let's Encrypt certificates
+      - "${DOCKER_DATA_DIR:?error}/${COMPOSE_PROJECT_NAME:?error}/rules:/rules:z" # Volume to store traefik dynamic configuration files
+      - "${DOCKER_DATA_DIR:?error}/${COMPOSE_PROJECT_NAME:?error}/logs:/logs:z" # Volume to store traefik logs
     environment:
       TZ: "Europe/Berlin"
       HETZNER_API_KEY: "${HETZNER_API_KEY:?error}" # Environment variable for Hetzner API key
