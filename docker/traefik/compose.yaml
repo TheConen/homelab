@@ -4,6 +4,7 @@ services:
     container_name: "socket-proxy"
     security_opt:
       - "label:disable"
+      - "no-new-privileges:true"
     environment:
       CONTAINERS: 1
     volumes:
@@ -16,6 +17,8 @@ services:
     container_name: "traefik"
     image: "traefik:3.5.0"
     restart: "unless-stopped"
+    security_opt:
+      - "no-new-privileges:true"
     ports:
       - "80:80"
       - "8080:8080"

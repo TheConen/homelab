@@ -9,6 +9,7 @@ services:
     restart: "unless-stopped"
     security_opt:
       - "label:disable" # Periphery needs to run as root to access docker.sock and /proc, so disable SELinux labels.
+      - "no-new-privileges:true"
     environment:
       - "PERIPHERY_PASSKEYS=${PERIPHERY_PASSKEYS:?error}"
       - "PERIPHERY_INCLUDE_DISK_MOUNTS=/etc/hostname"

@@ -7,6 +7,7 @@ services:
     restart: "unless-stopped"
     security_opt:
       - "label:disable" # Disable SELinux labels for compatibility with Kopia
+      - "no-new-privileges:true"
     command:
       - "server"
       - "start"

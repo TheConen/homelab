@@ -3,6 +3,8 @@ services:
     image: "fosrl/pangolin:1.8.0"
     container_name: "pangolin"
     restart: "unless-stopped"
+    security_opt:
+      - "no-new-privileges:true"
     volumes:
       - "${DOCKER_DATA_DIR:?error}/${COMPOSE_PROJECT_NAME:?error}/:/app/config:z"
     configs:

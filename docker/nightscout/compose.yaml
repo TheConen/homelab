@@ -4,6 +4,8 @@ services:
     image: "mongo:8.0.12"
     restart: "unless-stopped"
     command: "--quiet --wiredTigerCacheSizeGB 0.25"
+    security_opt:
+      - "no-new-privileges:true"
     volumes:
       - "${DOCKER_DATA_DIR:?error}/${COMPOSE_PROJECT_NAME:?error}/mongo-data:/data/db:z"
       - "${DOCKER_DATA_DIR:?error}/${COMPOSE_PROJECT_NAME:?error}/mongo-config:/data/configdb:z"
@@ -14,6 +16,8 @@ services:
     image: "nightscout/cgm-remote-monitor:15.0.3"
     container_name: "nightscout"
     restart: "unless-stopped"
+    security_opt:
+      - "no-new-privileges:true"
     depends_on:
       - "mongo"
     networks:

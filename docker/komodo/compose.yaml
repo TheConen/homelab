@@ -6,6 +6,8 @@ services:
       komodo.skip: # Prevent Komodo from stopping with StopAllContainers
     command: "--quiet --wiredTigerCacheSizeGB 0.25"
     restart: "unless-stopped"
+    security_opt:
+      - "no-new-privileges:true"
     volumes:
       - "${DOCKER_DATA_DIR:?error}/${COMPOSE_PROJECT_NAME:?error}/mongo-data:/data/db:z"
       - "${DOCKER_DATA_DIR:?error}/${COMPOSE_PROJECT_NAME:?error}/mongo-config:/data/configdb:z"
@@ -28,6 +30,8 @@ services:
       traefik.http.routers.komodo-external.middlewares: "badger@docker"
       traefik.http.services.komodo.loadbalancer.server.port: 9120
     restart: "unless-stopped"
+    security_opt:
+      - "no-new-privileges:true"
     depends_on:
       - "mongo"
     ports:
