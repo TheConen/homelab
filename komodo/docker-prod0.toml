@@ -229,7 +229,6 @@ params.server_id = "local"
 name = "homelab"
 [resource_sync.config]
 linked_repo = "homelab"
-webhook_enabled = false
 resource_path = ["komodo/docker-prod0.toml"]
 managed = true
 delete = true
