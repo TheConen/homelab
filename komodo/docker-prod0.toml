@@ -119,7 +119,6 @@ poll_for_updates = true
 linked_repo = "homelab"
 run_directory = "docker/periphery"
 environment = """
-COMPOSE_PROFILES=internal
 PERIPHERY_PASSKEYS=[[PERIPHERY_PASSKEYS]]
 """
 
