@@ -75,7 +75,8 @@ configs:
                 permanent: true
         websecure-external:
           address: ":8443"
-          http3: true
+          http3:
+            advertisedPort: 443
           http:
             tls:
               certResolver: "letsencrypt"
