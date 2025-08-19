@@ -20,7 +20,9 @@ services:
       - "80:80"
       - "8080:8080"
       - "443:443"
+      - "443:443/udp" # http3
       - "8443:8443"
+      - "8443:8443/udp" # http3
       - "8090:8090"
     healthcheck:
       test: [ 'CMD', 'traefik', 'healthcheck', '--ping' ]
