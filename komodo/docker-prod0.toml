@@ -1,8 +1,29 @@
 [[server]]
 name = "local"
 [server.config]
-address = "https://periphery:8120"
 enabled = true
+
+##
+
+[[stack]]
+name = "deluge"
+[stack.config]
+server = "local"
+poll_for_updates = true
+destroy_before_deploy = true
+linked_repo = "homelab"
+run_directory = "docker/deluge"
+environment = """
+DOCKER_DATA_DIR=[[DOCKER_DATA_DIR]]
+TRAEFIK_DOMAINNAME_1=[[TRAEFIK_DOMAINNAME_1]]
+PGID=[[DELUGE_PGID]]
+PUID=[[DELUGE_PUID]]
+SMB_USERNAME=[[DELUGE_SMB_USERNAME]]
+SMB_PASSWORD=[[DELUGE_SMB_PASSWORD]]
+SMB_HOST=[[DELUGE_SMB_HOST]]
+SMB_PATH_DOWNLOADS=[[DELUGE_SMB_PATH_DOWNLOADS]]
+SMB_PATH_COMPLETED=[[DELUGE_SMB_PATH_COMPLETED]]
+"""
 
 ##
 
@@ -23,6 +44,69 @@ KOMODO_WEBHOOK_SECRET=[[KOMODO_WEBHOOK_SECRET]]
 KOMODO_LOCAL_AUTH=true
 KOMODO_DISABLE_USER_REGISTRATION=true
 TRAEFIK_DOMAINNAME_1=[[TRAEFIK_DOMAINNAME_1]]
+"""
+
+##
+
+[[stack]]
+name = "kopia"
+[stack.config]
+server = "local"
+poll_for_updates = true
+destroy_before_deploy = true
+linked_repo = "homelab"
+run_directory = "docker/kopia"
+environment = """
+DOCKER_DATA_DIR=[[DOCKER_DATA_DIR]]
+TRAEFIK_DOMAINNAME_1=[[TRAEFIK_DOMAINNAME_1]]
+STATIC_HOSTNAME=[[KOPIA_STATIC_HOSTNAME]]
+SERVER_USERNAME=[[KOPIA_SERVER_USERNAME]]
+SERVER_PASSWORD=[[KOPIA_SERVER_PASSWORD]]
+REPOSITORY_PASSWORD=[[KOPIA_REPOSITORY_PASSWORD]]
+SMB_USERNAME=[[KOPIA_SMB_USERNAME]]
+SMB_PASSWORD=[[KOPIA_SMB_PASSWORD]]
+SMB_HOST=[[KOPIA_SMB_HOST]]
+SMB_PATH=[[KOPIA_SMB_PATH]]
+"""
+
+##
+
+[[stack]]
+name = "nightscout"
+[stack.config]
+server = "local"
+run_build = true
+poll_for_updates = true
+destroy_before_deploy = true
+linked_repo = "homelab"
+webhook_force_deploy = true
+run_directory = "docker/nightscout"
+environment = """
+DOCKER_DATA_DIR=[[DOCKER_DATA_DIR]]
+API_SECRET=[[NIGHTSCOUT_API_SECRET]]
+NIGHTSCOUT_DB_USERNAME=[[NIGHTSCOUT_DB_USERNAME]]
+NIGHTSCOUT_DB_PASSWORD=[[NIGHTSCOUT_DB_PASSWORD]]
+TRAEFIK_DOMAINNAME_1=[[TRAEFIK_DOMAINNAME_1]]
+"""
+
+##
+
+[[stack]]
+name = "pangolin"
+[stack.config]
+server = "local"
+poll_for_updates = true
+destroy_before_deploy = true
+linked_repo = "homelab"
+run_directory = "docker/pangolin"
+environment = """
+DOCKER_DATA_DIR=[[DOCKER_DATA_DIR]]
+TRAEFIK_DOMAINNAME_1=[[TRAEFIK_DOMAINNAME_1]]
+SERVER_SECRET=[[PANGOLIN_SERVER_SECRET]]
+SMTP_HOST=[[PANGOLIN_SMTP_HOST]]
+SMTP_USER=[[PANGOLIN_SMTP_USER]]
+SMTP_PASSWORD=[[PANGOLIN_SMTP_PASSWORD]]
+SMTP_NO_REPLY_EMAIL=[[PANGOLIN_SMTP_NO_REPLY_EMAIL]]
 """
 
 ##
@@ -58,91 +142,6 @@ DOMAINNAME_1_EMAIL=[[TRAEFIK_DOMAINNAME_1_EMAIL]]
 
 ##
 
-[[stack]]
-name = "pangolin"
-[stack.config]
-server = "local"
-poll_for_updates = true
-destroy_before_deploy = true
-linked_repo = "homelab"
-run_directory = "docker/pangolin"
-environment = """
-DOCKER_DATA_DIR=[[DOCKER_DATA_DIR]]
-TRAEFIK_DOMAINNAME_1=[[TRAEFIK_DOMAINNAME_1]]
-SERVER_SECRET=[[PANGOLIN_SERVER_SECRET]]
-SMTP_HOST=[[PANGOLIN_SMTP_HOST]]
-SMTP_USER=[[PANGOLIN_SMTP_USER]]
-SMTP_PASSWORD=[[PANGOLIN_SMTP_PASSWORD]]
-SMTP_NO_REPLY_EMAIL=[[PANGOLIN_SMTP_NO_REPLY_EMAIL]]
-"""
-
-##
-
-[[stack]]
-name = "kopia"
-[stack.config]
-server = "local"
-poll_for_updates = true
-destroy_before_deploy = true
-linked_repo = "homelab"
-run_directory = "docker/kopia"
-environment = """
-DOCKER_DATA_DIR=[[DOCKER_DATA_DIR]]
-TRAEFIK_DOMAINNAME_1=[[TRAEFIK_DOMAINNAME_1]]
-STATIC_HOSTNAME=[[KOPIA_STATIC_HOSTNAME]]
-SERVER_USERNAME=[[KOPIA_SERVER_USERNAME]]
-SERVER_PASSWORD=[[KOPIA_SERVER_PASSWORD]]
-REPOSITORY_PASSWORD=[[KOPIA_REPOSITORY_PASSWORD]]
-SMB_USERNAME=[[KOPIA_SMB_USERNAME]]
-SMB_PASSWORD=[[KOPIA_SMB_PASSWORD]]
-SMB_HOST=[[KOPIA_SMB_HOST]]
-SMB_PATH=[[KOPIA_SMB_PATH]]
-"""
-
-##
-
-[[stack]]
-name = "deluge"
-[stack.config]
-server = "local"
-poll_for_updates = true
-destroy_before_deploy = true
-linked_repo = "homelab"
-run_directory = "docker/deluge"
-environment = """
-DOCKER_DATA_DIR=[[DOCKER_DATA_DIR]]
-TRAEFIK_DOMAINNAME_1=[[TRAEFIK_DOMAINNAME_1]]
-PGID=[[DELUGE_PGID]]
-PUID=[[DELUGE_PUID]]
-SMB_USERNAME=[[DELUGE_SMB_USERNAME]]
-SMB_PASSWORD=[[DELUGE_SMB_PASSWORD]]
-SMB_HOST=[[DELUGE_SMB_HOST]]
-SMB_PATH_DOWNLOADS=[[DELUGE_SMB_PATH_DOWNLOADS]]
-SMB_PATH_COMPLETED=[[DELUGE_SMB_PATH_COMPLETED]]
-"""
-
-##
-
-[[stack]]
-name = "nightscout"
-[stack.config]
-server = "local"
-run_build = true
-poll_for_updates = true
-destroy_before_deploy = true
-linked_repo = "homelab"
-webhook_force_deploy = true
-run_directory = "docker/nightscout"
-environment = """
-DOCKER_DATA_DIR=[[DOCKER_DATA_DIR]]
-API_SECRET=[[NIGHTSCOUT_API_SECRET]]
-NIGHTSCOUT_DB_USERNAME=[[NIGHTSCOUT_DB_USERNAME]]
-NIGHTSCOUT_DB_PASSWORD=[[NIGHTSCOUT_DB_PASSWORD]]
-TRAEFIK_DOMAINNAME_1=[[TRAEFIK_DOMAINNAME_1]]
-"""
-
-##
-
 [[repo]]
 name = "homelab"
 [repo.config]
@@ -150,6 +149,21 @@ server = "local"
 builder = "local"
 git_account = "theconen"
 repo = "theconen/homelab"
+
+##
+
+[[procedure]]
+name = "Backup Core Database"
+description = "Triggers the Core database backup at the scheduled time."
+tags = ["system"]
+config.schedule = "Every day at 01:00"
+
+[[procedure.config.stage]]
+name = "Stage 1"
+enabled = true
+executions = [
+  { execution.type = "BackupCoreDatabase", execution.params = {}, enabled = true }
+]
 
 ##
 
@@ -194,21 +208,6 @@ executions = [
 
 ##
 
-[[procedure]]
-name = "Backup Core Database"
-description = "Triggers the Core database backup at the scheduled time."
-tags = ["system"]
-config.schedule = "Every day at 01:00"
-
-[[procedure.config.stage]]
-name = "Stage 1"
-enabled = true
-executions = [
-  { execution.type = "BackupCoreDatabase", execution.params = {}, enabled = true }
-]
-
-##
-
 [[alerter]]
 name = "Discord"
 [alerter.config]
@@ -230,6 +229,7 @@ params.server_id = "local"
 name = "homelab"
 [resource_sync.config]
 linked_repo = "homelab"
+webhook_enabled = false
 resource_path = ["komodo/docker-prod0.toml"]
 managed = true
 delete = true
