@@ -19,6 +19,8 @@ services:
     restart: "unless-stopped"
     security_opt:
       - "no-new-privileges:true"
+    depends_on:
+      - "socket-proxy"
     ports:
       - "80:80"
       - "8080:8080"

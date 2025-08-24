@@ -75,6 +75,22 @@ services:
       traefik.http.routers.nightscout-reporter-external.service: "nightscout-reporter"
       traefik.http.routers.nightscout-reporter-external.middlewares: "badger@docker"
       traefik.http.services.nightscout-reporter.loadbalancer.server.port: 80
+  db-backup:
+    container_name: "${COMPOSE_PROJECT_NAME:?error}-db-backup"
+    image: "tiredofit/db-backup:4.1.21"
+    restart: "unless-stopped"
+    security_opt:
+      - "no-new-privileges:true"
+    volumes:
+      - "${DOCKER_DATA_DIR:?error}/${COMPOSE_PROJECT_NAME:?error}/db-backups:/backups:z"
+    environment:
+      TIMEZONE: "Europe/Berlin"
+      CONTAINER_NAME: "${COMPOSE_PROJECT_NAME:?error}-db-backup"
+      CONTAINER_ENABLE_MONITORING: "FALSE"
+      DEFAULT_BACKUP_SCHEDULE: "0 2 * * *"
+      DEFAULT_CLEANUP_TIME: "8640" # Cleanup after 7 days
+      DB01_TYPE: "mongodb"
+      DB01_CUSTOM_MONGO_URI: "mongodb://${NIGHTSCOUT_DB_USERNAME:?error}:${NIGHTSCOUT_DB_PASSWORD:?error}@mongo:27017/nightscout?authSource=admin"
 networks:
   default: {}
   proxy:
