@@ -1,6 +1,7 @@
 [[server]]
 name = "local"
 [server.config]
+address = "https://172.17.0.1:8120"
 enabled = true
 
 ##
@@ -108,19 +109,6 @@ SMTP_HOST=[[PANGOLIN_SMTP_HOST]]
 SMTP_USER=[[PANGOLIN_SMTP_USER]]
 SMTP_PASSWORD=[[PANGOLIN_SMTP_PASSWORD]]
 SMTP_NO_REPLY_EMAIL=[[PANGOLIN_SMTP_NO_REPLY_EMAIL]]
-"""
-
-##
-
-[[stack]]
-name = "periphery"
-[stack.config]
-server = "local"
-poll_for_updates = true
-linked_repo = "homelab"
-run_directory = "docker/periphery"
-environment = """
-PERIPHERY_PASSKEYS=[[PERIPHERY_PASSKEYS]]
 """
 
 ##
