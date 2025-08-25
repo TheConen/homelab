@@ -90,7 +90,7 @@ services:
       DEFAULT_BACKUP_SCHEDULE: "0 2 * * *"
       DEFAULT_CLEANUP_TIME: "8640" # Cleanup after 7 days
       DB01_TYPE: "mongodb"
-      DB01_CUSTOM_MONGO_URI: "mongodb://${NIGHTSCOUT_DB_USERNAME:?error}:${NIGHTSCOUT_DB_PASSWORD:?error}@mongo:27017/nightscout?authSource=admin"
+      DB01_MONGO_CUSTOM_URI: "mongodb://${NIGHTSCOUT_DB_USERNAME:?error}:${NIGHTSCOUT_DB_PASSWORD:?error}@mongo:27017/nightscout?authSource=admin"
 networks:
   default: {}
   proxy:
