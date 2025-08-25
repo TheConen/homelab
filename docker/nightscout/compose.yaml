@@ -82,7 +82,7 @@ services:
     security_opt:
       - "no-new-privileges:true"
     volumes:
-      - "${DOCKER_DATA_DIR:?error}/${COMPOSE_PROJECT_NAME:?error}/db-backups:/backups:z"
+      - "${DOCKER_DATA_DIR:?error}/${COMPOSE_PROJECT_NAME:?error}/db-backups:/backup:z"
     environment:
       TIMEZONE: "Europe/Berlin"
       CONTAINER_NAME: "${COMPOSE_PROJECT_NAME:?error}-db-backup"
