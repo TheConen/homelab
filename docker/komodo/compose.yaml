@@ -24,7 +24,7 @@ services:
       traefik.http.routers.komodo-internal.entrypoints: "websecure-internal"
       traefik.http.routers.komodo-external.entrypoints: "websecure-external"
       traefik.http.routers.komodo-internal.rule: "Host(`komodo.${TRAEFIK_DOMAINNAME_1:?error}`)"
-      traefik.http.routers.komodo-external.rule: "Host(`komodo.${TRAEFIK_DOMAINNAME_1:?error}` && PathPrefix(`^/listener/.*$`)"
+      traefik.http.routers.komodo-external.rule: "Host(`komodo.${TRAEFIK_DOMAINNAME_1:?error}`) && PathPrefix(`^/listener/.*$`)"
       traefik.http.routers.komodo-internal.service: "komodo"
       traefik.http.routers.komodo-external.service: "komodo"
       traefik.http.services.komodo.loadbalancer.server.port: 9120
