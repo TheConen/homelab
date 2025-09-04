@@ -60,6 +60,8 @@ services:
     build: "https://github.com/TheConen/nightscout-reporter-angular.git"
     pull_policy: "always"
     restart: "unless-stopped"
+    security_opt:
+      - "no-new-privileges:true"
     configs:
         - source: "nginx-config"
           target: "/etc/nginx/conf.d/nginx.conf"
