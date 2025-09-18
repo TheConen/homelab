@@ -1,6 +1,6 @@
 services:
   pangolin:
-    image: "fosrl/pangolin:1.9.4"
+    image: "fosrl/pangolin:1.10.1"
     container_name: "pangolin"
     restart: "unless-stopped"
     security_opt:
