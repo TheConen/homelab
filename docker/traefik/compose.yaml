@@ -39,6 +39,7 @@ services:
       TZ: "Europe/Berlin"
       HETZNER_API_TOKEN: "${HETZNER_API_TOKEN:?error}" # Environment variable for Hetzner API key
       DOMAINNAME_1:  "${DOMAINNAME_1:?error}" # Environment variable for the primary domain name
+      LEGO_DISABLE_CNAME_SUPPORT: "true"
     configs:
       - source: "traefik_static"
         target: "/etc/traefik/traefik.yaml"
