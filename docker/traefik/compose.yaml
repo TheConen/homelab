@@ -37,7 +37,7 @@ services:
       - "${DOCKER_DATA_DIR:?error}/${COMPOSE_PROJECT_NAME:?error}/logs:/logs:z" # Volume to store traefik logs
     environment:
       TZ: "Europe/Berlin"
-      HETZNER_API_KEY: "${HETZNER_API_KEY:?error}" # Environment variable for Hetzner API key
+      HETZNER_API_TOKEN: "${HETZNER_API_TOKEN:?error}" # Environment variable for Hetzner API key
       DOMAINNAME_1:  "${DOMAINNAME_1:?error}" # Environment variable for the primary domain name
     configs:
       - source: "traefik_static"
