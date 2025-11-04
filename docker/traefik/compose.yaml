@@ -137,9 +137,9 @@ configs:
             dnsChallenge:
               provider: "hetzner"
               resolvers:
-                - "hydrogen.ns.hetzner.com."
-                - "oxygen.ns.hetzner.com."
-                - "helium.ns.hetzner.de."
+                - "hydrogen.ns.hetzner.com"
+                - "oxygen.ns.hetzner.com"
+                - "helium.ns.hetzner.de"
             email: "${DOMAINNAME_1_EMAIL:?error}"
             storage: "/letsencrypt/acme.json"
             caServer: "https://acme-staging-v02.api.letsencrypt.org/directory" # staging
