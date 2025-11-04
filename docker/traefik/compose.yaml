@@ -80,8 +80,8 @@ configs:
                 permanent: true
         websecure-external:
           address: ":8443"
-          http3:
-            advertisedPort: 443
+          # http3:
+            # advertisedPort: 443
           http:
             tls:
               certResolver: "letsencrypt"
@@ -91,7 +91,7 @@ configs:
                     - "*.${DOMAINNAME_1}"
         websecure-internal:
           address: ":443"
-          http3: true
+          # http3: true
           http:
             tls:
               certResolver: letsencrypt
