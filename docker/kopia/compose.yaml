@@ -1,6 +1,6 @@
 services:
   kopia:
-    image: "kopia/kopia:0.22.1"
+    image: "kopia/kopia:0.22.3"
     hostname: "${STATIC_HOSTNAME:?error}"
     domainname: "${TRAEFIK_DOMAINNAME_1:?error}"
     container_name: "kopia"
