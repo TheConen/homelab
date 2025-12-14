@@ -38,7 +38,7 @@ services:
     environment:
       TZ: "Europe/Berlin"
       HETZNER_API_TOKEN: "${HETZNER_API_TOKEN:?error}" # Environment variable for Hetzner API key
-      DOMAINNAME_1:  "${DOMAINNAME_1:?error}" # Environment variable for the primary domain name
+      DOMAINNAME_1: "${DOMAINNAME_1:?error}" # Environment variable for the primary domain name
     configs:
       - source: "traefik_static"
         target: "/etc/traefik/traefik.yaml"
@@ -48,7 +48,7 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.traefik.entrypoints=websecure-internal"
-      - "traefik.http.routers.traefik.rule=Host(`traefik.$DOMAINNAME_1`)"
+      - "traefik.http.routers.traefik.rule=Host(`traefik.${DOMAINNAME_1?error}`)"
       - "traefik.http.routers.traefik.service=api@internal"
 networks:
   default: {}
