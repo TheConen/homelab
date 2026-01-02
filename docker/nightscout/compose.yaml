@@ -86,10 +86,11 @@ services:
     volumes:
       - "${DOCKER_DATA_DIR:?error}/${COMPOSE_PROJECT_NAME:?error}/db-backups:/backup:z"
     environment:
+      TZ: "Europe/Berlin"
       TIMEZONE: "Europe/Berlin"
       CONTAINER_NAME: "${COMPOSE_PROJECT_NAME:?error}-db-backup"
       CONTAINER_ENABLE_MONITORING: "FALSE"
-      DEFAULT_BACKUP_SCHEDULE: "0 2 * * *"
+      DEFAULT_BACKUP_BEGIN: "0 2 * * *"
       DEFAULT_CLEANUP_TIME: "8640" # Cleanup after 7 days
       DB01_TYPE: "mongodb"
       DB01_MONGO_CUSTOM_URI: "mongodb://${NIGHTSCOUT_DB_USERNAME:?error}:${NIGHTSCOUT_DB_PASSWORD:?error}@mongo:27017/nightscout?authSource=admin"
