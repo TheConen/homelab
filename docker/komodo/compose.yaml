@@ -12,6 +12,7 @@ services:
       - "${DOCKER_DATA_DIR:?error}/${COMPOSE_PROJECT_NAME:?error}/mongo-data:/data/db:z"
       - "${DOCKER_DATA_DIR:?error}/${COMPOSE_PROJECT_NAME:?error}/mongo-config:/data/configdb:z"
     environment:
+      GLIBC_TUNABLES: "glibc:pthread:rseq=1" # https://jira.mongodb.org/browse/SERVER-120238
       MONGO_INITDB_ROOT_USERNAME: "${KOMODO_DB_USERNAME:?error}"
       MONGO_INITDB_ROOT_PASSWORD: "${KOMODO_DB_PASSWORD:?error}"
 

@@ -2,7 +2,7 @@ services:
   mongo:
     container_name: "nightscout-mongodb"
     image: "mongo:8.2.5"
-    restart: "no"
+    restart: "unless-stopped"
     command: "--quiet --wiredTigerCacheSizeGB 0.25"
     security_opt:
       - "no-new-privileges:true"
