@@ -17,7 +17,7 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: "${KOMODO_DB_PASSWORD:?error}"
 
   core:
-    image: "ghcr.io/moghtech/komodo-core:2.1.0"
+    image: "ghcr.io/moghtech/komodo-core:2.1.1"
     container_name: "komodo-core"
     init: true
     labels:
