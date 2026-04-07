@@ -46,10 +46,10 @@ services:
       default:
       proxy:
     labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.traefik.entrypoints=websecure-internal"
-      - "traefik.http.routers.traefik.rule=Host(`traefik.${DOMAINNAME_1?error}`)"
-      - "traefik.http.routers.traefik.service=api@internal"
+      traefik.enable: true
+      traefik.http.routers.traefik.entrypoints: "websecure-internal"
+      traefik.http.routers.traefik.rule: "Host(`traefik.${DOMAINNAME_1?error}`)"
+      traefik.http.routers.traefik.service: "api@internal"
 networks:
   default: {}
   proxy:
@@ -118,7 +118,7 @@ configs:
         compress: true
       
       accessLog:
-        filePath: "/logs/access.log"
+        # filePath: "/logs/access.log"
         # format: "json"  # (Default: common) common, json
       
       providers:
