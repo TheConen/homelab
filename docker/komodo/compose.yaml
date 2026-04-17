@@ -1,6 +1,6 @@
 services:
   mongo:
-    image: "mongo:8.2.6"
+    image: "mongo:8.2.7"
     container_name: "komodo-mongo"
     labels:
       komodo.skip: # Prevent Komodo from stopping with StopAllContainers
