@@ -14,7 +14,7 @@ services:
       MONGO_INITDB_ROOT_USERNAME: "${NIGHTSCOUT_DB_USERNAME:?error}"
       MONGO_INITDB_ROOT_PASSWORD: "${NIGHTSCOUT_DB_PASSWORD:?error}"
   nightscout:
-    image: "nightscout/cgm-remote-monitor:15.0.6"
+    image: "nightscout/cgm-remote-monitor:15.0.7"
     container_name: "nightscout"
     restart: "unless-stopped"
     security_opt:
