@@ -115,11 +115,10 @@ configs:
       # Expected environment variables (set by the compose/AppHost that owns the
       # Postgres container):
       #
-      #   POSTGRES_DB                  database name (set by the Postgres image)
       #   POSTGRES_USER                superuser name (set by the Postgres image)
-      #   NOCTURNE_MIGRATOR_PASSWORD   password for nocturne_migrator
-      #   NOCTURNE_APP_PASSWORD        password for nocturne_app
-      #   NOCTURNE_WEB_PASSWORD        password for nocturne_web (bot state)
+      #   $DB_MIGRATOR_PASSWORD   password for nocturne_migrator
+      #   $DB_APP_PASSWORD        password for nocturne_app
+      #   $DB_WEB_PASSWORD        password for nocturne_web (bot state)
       #
       # Passwords are passed to psql via -v variables (not shell interpolation
       # inside the SQL text) so that values containing quotes or dollar signs are
@@ -127,20 +126,19 @@ configs:
 
       set -euo pipefail
 
-      : "${POSTGRES_DB:?POSTGRES_DB must be set}"
-      : "${POSTGRES_USER:?POSTGRES_USER must be set}"
-      : "${NOCTURNE_MIGRATOR_PASSWORD:?NOCTURNE_MIGRATOR_PASSWORD must be set}"
-      : "${NOCTURNE_APP_PASSWORD:?NOCTURNE_APP_PASSWORD must be set}"
-      : "${NOCTURNE_WEB_PASSWORD:?NOCTURNE_WEB_PASSWORD must be set}"
+      : "${DB_USERNAME:?DB_USERNAME must be set}"
+      : "${$DB_MIGRATOR_PASSWORD:?$DB_MIGRATOR_PASSWORD must be set}"
+      : "${$DB_APP_PASSWORD:?$DB_APP_PASSWORD must be set}"
+      : "${$DB_WEB_PASSWORD:?$DB_WEB_PASSWORD must be set}"
 
       psql \
-          --username "$POSTGRES_USER" \
-          --dbname "$POSTGRES_DB" \
+          --username "$DB_USERNAME" \
+          --dbname "nocturne" \
           --set ON_ERROR_STOP=on \
-          --set DBNAME="$POSTGRES_DB" \
-          --set migrator_password="$NOCTURNE_MIGRATOR_PASSWORD" \
-          --set app_password="$NOCTURNE_APP_PASSWORD" \
-          --set web_password="$NOCTURNE_WEB_PASSWORD" \
+          --set DBNAME="nocturne" \
+          --set migrator_password="$DB_MIGRATOR_PASSWORD" \
+          --set app_password="$DB_APP_PASSWORD" \
+          --set web_password="$DB_WEB_PASSWORD" \
           <<'SQL'
       CREATE ROLE nocturne_migrator LOGIN NOSUPERUSER NOBYPASSRLS NOCREATEDB NOCREATEROLE PASSWORD :'migrator_password';
       CREATE ROLE nocturne_app      LOGIN NOSUPERUSER NOBYPASSRLS NOCREATEDB NOCREATEROLE PASSWORD :'app_password';
