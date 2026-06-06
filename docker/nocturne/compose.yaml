@@ -34,10 +34,10 @@ services:
       INSTANCE_KEY: "${INSTANCE_KEY:?error}"
       NOCTURNE_POSTGRES_URI: "postgresql://nocturne_web:${DB_WEB_PASSWORD}@db:5432/nocturne"
       PORT: "8080"
-      NOCTURNE_API_HTTP: "http://nocturne-api:8080"
-      services__nocturne-api__http__0: "http://nocturne-api:8080"
-      PUBLIC_API_URL: "http://nocturne-api:8080"
-      NOCTURNE_API_URL: "http://nocturne-api:8080"
+      NOCTURNE_API_HTTP: "http://api:8080"
+      services__nocturne-api__http__0: "http://api:8080"
+      PUBLIC_API_URL: "http://api:8080"
+      NOCTURNE_API_URL: "http://api:8080"
     labels:
       traefik.enable: true
       traefik.http.routers.nocturne.entrypoints: "websecure-internal"
