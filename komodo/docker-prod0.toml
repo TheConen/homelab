@@ -92,6 +92,29 @@ TRAEFIK_DOMAINNAME_1=[[TRAEFIK_DOMAINNAME_1]]
 ##
 
 [[stack]]
+name = "nocturne"
+[stack.config]
+server = "local"
+run_build = true
+poll_for_updates = true
+destroy_before_deploy = true
+linked_repo = "homelab"
+webhook_force_deploy = true
+run_directory = "docker/nocturne"
+environment = """
+DOCKER_DATA_DIR=[[DOCKER_DATA_DIR]]
+TRAEFIK_DOMAINNAME_1=[[TRAEFIK_DOMAINNAME_1]]
+DB_USERNAME=[[NOCTURNE_DB_USERNAME]]
+DB_PASSWORD=[[NOCTURNE_DB_PASSWORD]]
+DB_MIGRATOR_PASSWORD=[[NOCTURNE_DB_MIGRATOR_PASSWORD]]
+DB_APP_PASSWORD=[[NOCTURNE_DB_APP_PASSWORD]]
+DB_WEB_PASSWORD=[[NOCTURNE_DB_WEB_PASSWORD]]
+INSTANCE_KEY=[[NOCTURNE_INSTANCE_KEY]]
+"""
+
+##
+
+[[stack]]
 name = "pangolin"
 [stack.config]
 server = "local"
