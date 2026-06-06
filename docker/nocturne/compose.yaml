@@ -44,6 +44,9 @@ services:
       traefik.http.routers.nocturne.rule: "Host(`nocturne.${TRAEFIK_DOMAINNAME_1:?error}`)"
       traefik.http.routers.nocturne.service: "nocturne"
       traefik.http.services.nocturne.loadbalancer.server.port: 8080
+    networks:
+      - "default"
+      - "proxy"
 
   db:
     container_name: "${COMPOSE_PROJECT_NAME:?error}-db"
