@@ -127,9 +127,9 @@ configs:
       set -euo pipefail
 
       : "${DB_USERNAME:?DB_USERNAME must be set}"
-      : "${$DB_MIGRATOR_PASSWORD:?DB_MIGRATOR_PASSWORD must be set}"
-      : "${$DB_APP_PASSWORD:?DB_APP_PASSWORD must be set}"
-      : "${$DB_WEB_PASSWORD:?DB_WEB_PASSWORD must be set}"
+      : "${$DB_MIGRATOR_PASSWORD:?$DB_MIGRATOR_PASSWORD must be set}"
+      : "${$DB_APP_PASSWORD:?$DB_APP_PASSWORD must be set}"
+      : "${$DB_WEB_PASSWORD:?$DB_WEB_PASSWORD must be set}"
 
       psql \
           --username "$DB_USERNAME" \
