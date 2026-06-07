@@ -139,6 +139,9 @@ configs:
           defaultMode: keep
           headers:
             defaultMode: keep
+            names:
+              Authorization: redact
+              Cookie: drop
       
       providers:
         docker:
