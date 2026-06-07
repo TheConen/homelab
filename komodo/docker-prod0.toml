@@ -97,6 +97,8 @@ name = "nocturne"
 server = "local"
 run_build = true
 poll_for_updates = true
+auto_update = true
+auto_update_all_services = true
 destroy_before_deploy = true
 linked_repo = "homelab"
 webhook_force_deploy = true
@@ -232,7 +234,7 @@ endpoint.params.url = "[[KOMODO_DISCORD_ALERTS_WEBHOOK]]"
 name = "local"
 [builder.config]
 type = "Server"
-params.server_id = "local"
+params.server = "local"
 
 ##
 
