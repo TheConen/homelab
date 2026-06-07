@@ -134,6 +134,11 @@ configs:
       accessLog:
         filePath: "/logs/access.log"
         format: "json"  # (Default: common) common, json
+        bufferingSize: 0
+        fields:
+          defaultMode: keep
+          headers:
+            defaultMode: keep
       
       providers:
         docker:
