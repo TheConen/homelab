@@ -124,17 +124,16 @@ configs:
       ping: {}
       
       log:
-        # filePath: "/logs/traefik.log"
+        filePath: "/logs/traefik.log"
         level: "INFO"  # (Default: error) DEBUG, INFO, WARN, ERROR, FATAL, PANIC
-        # format: "json"  # (Default: common) common, json
+        format: "json"  # (Default: common) common, json
         maxSize: 100
         maxBackups: 3
-        maxAge: 3
         compress: true
       
       accessLog:
-        # filePath: "/logs/access.log"
-        # format: "json"  # (Default: common) common, json
+        filePath: "/logs/access.log"
+        format: "json"  # (Default: common) common, json
       
       providers:
         docker:
