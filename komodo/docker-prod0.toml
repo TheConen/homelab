@@ -98,7 +98,6 @@ server = "local"
 run_build = true
 poll_for_updates = true
 auto_update = true
-auto_update_all_services = true
 destroy_before_deploy = true
 linked_repo = "homelab"
 webhook_force_deploy = true
