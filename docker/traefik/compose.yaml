@@ -150,4 +150,4 @@ configs:
         plugins:
           badger:
             moduleName: "github.com/fosrl/badger"
-            version: "v1.2.1"
+            version: "v1.4.1"
