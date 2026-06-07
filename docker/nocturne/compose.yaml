@@ -30,7 +30,7 @@ services:
       api:
         condition: "service_started"
     environment:
-      ORIGIN: "https://nocturne.${TRAEFIK_DOMAINNAME_1:?error}"
+      BASE_DOMAIN: "nocturne.${TRAEFIK_DOMAINNAME_1:?error}"
       INSTANCE_KEY: "${INSTANCE_KEY:?error}"
       NOCTURNE_POSTGRES_URI: "postgresql://nocturne_web:${DB_WEB_PASSWORD}@db:5432/nocturne"
       PORT: "8080"
