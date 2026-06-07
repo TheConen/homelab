@@ -41,7 +41,7 @@ services:
     labels:
       traefik.enable: true
       traefik.http.routers.nocturne.entrypoints: "websecure-internal"
-      traefik.http.routers.nocturne.rule: "Host(`nocturne.${TRAEFIK_DOMAINNAME_1:?error}`) || Host(`*.nocturne.${TRAEFIK_DOMAINNAME_1:?error}`)"
+      traefik.http.routers.nocturne.rule: "Host(`nocturne.${TRAEFIK_DOMAINNAME_1:?error}`)"
       traefik.http.routers.nocturne.service: "nocturne"
       traefik.http.services.nocturne.loadbalancer.server.port: 8080
     networks:
