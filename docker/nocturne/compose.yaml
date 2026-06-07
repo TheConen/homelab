@@ -40,9 +40,13 @@ services:
       NOCTURNE_API_URL: "http://api:8080"
     labels:
       traefik.enable: true
-      traefik.http.routers.nocturne.entrypoints: "websecure-internal"
-      traefik.http.routers.nocturne.rule: "Host(`theconen.nocturne.${TRAEFIK_DOMAINNAME_1:?error}`) || Host(`nocturne.${TRAEFIK_DOMAINNAME_1:?error}`)"
-      traefik.http.routers.nocturne.service: "nocturne"
+      traefik.http.routers.nocturne-internal.entrypoints: "websecure-internal"
+      traefik.http.routers.nocturne-internal.rule: "Host(`nocturne.${TRAEFIK_DOMAINNAME_1:?error}`)"
+      traefik.http.routers.nocturne-internal.service: "nocturne"
+      traefik.http.routers.nocturne-external.entrypoints: "websecure-external"
+      traefik.http.routers.nocturne-external.rule: "Host(`nocturne.${TRAEFIK_DOMAINNAME_1:?error}`)"
+      traefik.http.routers.nocturne-external.service: "nocturne"
+      traefik.http.routers.nocturne-external.middlewares: "badger@docker"
       traefik.http.services.nocturne.loadbalancer.server.port: 8080
     networks:
       - "default"
