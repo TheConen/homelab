@@ -127,8 +127,8 @@ configs:
         filePath: "/logs/traefik.log"
         level: "INFO"  # (Default: error) DEBUG, INFO, WARN, ERROR, FATAL, PANIC
         format: "json"  # (Default: common) common, json
-        maxSize: 100
-        maxBackups: 3
+        maxSize: 20
+        maxBackups: 10
         compress: true
       
       accessLog:
