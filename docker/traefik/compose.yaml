@@ -52,7 +52,7 @@ services:
       traefik.http.routers.traefik.service: "api@internal"
 
   whoami:
-    image: "traefik/whoami"
+    image: "traefik/whoami:v1.11.0"
     container_name: "whoami"
     restart: "unless-stopped"
     security_opt:
@@ -68,7 +68,7 @@ services:
 networks:
   default: {}
   proxy:
-    name: "${TRAEFIK_NETWORK_NAME:-proxy}"
+    name: "proxy"
 configs:
   traefik_static:
     content: |
@@ -140,7 +140,7 @@ configs:
         docker:
           endpoint: "tcp://socket-proxy:2375"
           exposedByDefault: false
-          network: "${TRAEFIK_NETWORK_NAME:-proxy}"
+          network: "proxy"
         file:
           directory: "/rules"  # Load dynamic configuration from one or more .toml or .yml files in a directory
           watch: true          # Only works on top level files in the rules folder

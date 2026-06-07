@@ -15,7 +15,7 @@ services:
       PGID: "${PGID:?error}"
       PUID: "${PUID:?error}"
       TZ: "Europe/Berlin"
-      DELUGE_LOGLEVEL: "${DELUGE_LOGLEVEL:-none}"
+      DELUGE_LOGLEVEL: "none"
     networks:
         proxy:
     labels:
@@ -40,4 +40,4 @@ volumes:
 networks:
   proxy:
     external: true
-    name: "${TRAEFIK_NETWORK_NAME:-proxy}"
+    name: "proxy"

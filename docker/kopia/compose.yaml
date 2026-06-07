@@ -18,7 +18,7 @@ services:
       - "--server-password=${SERVER_PASSWORD?error}"
     environment:
       KOPIA_PASSWORD: "${REPOSITORY_PASSWORD:?error}"
-      USER: "${USER:-kopia}"
+      USER: "kopia"
       TZ: "Europe/Berlin"
     networks:
       proxy:
@@ -47,4 +47,4 @@ volumes:
 networks:
   proxy:
     external: true
-    name: "${TRAEFIK_NETWORK_NAME:-proxy}"
+    name: "proxy"

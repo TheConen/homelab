@@ -46,12 +46,12 @@ services:
       KOMODO_DATABASE_PASSWORD: "${KOMODO_DB_PASSWORD:?error}"
       KOMODO_HOST: "${KOMODO_HOST:?error}"
       KOMODO_WEBHOOK_SECRET: "${KOMODO_WEBHOOK_SECRET:?error}"
-      KOMODO_LOCAL_AUTH: "${KOMODO_LOCAL_AUTH:-true}"
-      KOMODO_DISABLE_USER_REGISTRATION: "${KOMODO_DISABLE_USER_REGISTRATION:-true}"
-      KOMODO_DISABLE_NON_ADMIN_CREATE: "${KOMODO_DISABLE_NON_ADMIN_CREATE:-true}"
+      KOMODO_LOCAL_AUTH: "true"
+      KOMODO_DISABLE_USER_REGISTRATION: "true"
+      KOMODO_DISABLE_NON_ADMIN_CREATE: "true"
       # KOMODO_INIT_ADMIN_USERNAME: "${KOMODO_INIT_ADMIN_USERNAME:?error}" # Only needed for bootstrapping
       # KOMODO_INIT_ADMIN_PASSWORD: "${KOMODO_INIT_ADMIN_PASSWORD:?error}" # Only needed for bootstrapping
-      TZ: "${TZ:-Europe/Berlin}"
+      TZ: "Europe/Berlin"
     volumes:
       - "${DOCKER_DATA_DIR:?error}/${COMPOSE_PROJECT_NAME:?error}/backups:/backups:z"
       - "${DOCKER_DATA_DIR:?error}/${COMPOSE_PROJECT_NAME:?error}/keys:/config/keys:z"
@@ -59,4 +59,4 @@ networks:
   default:
   proxy:
     external: true
-    name: "${TRAEFIK_NETWORK_NAME:-proxy}"
+    name: "proxy"

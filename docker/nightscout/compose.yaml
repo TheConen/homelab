@@ -101,7 +101,7 @@ networks:
   default: {}
   proxy:
     external: true
-    name: "${TRAEFIK_NETWORK_NAME:-proxy}"
+    name: "proxy"
 configs:
   nginx-config:
     content: |
