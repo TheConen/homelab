@@ -48,7 +48,7 @@ services:
     labels:
       traefik.enable: true
       traefik.http.routers.traefik-log-dashboard.entrypoints: "websecure-internal"
-      traefik.http.routers.traefik-log-dashboard.rule: "Host(`traefik-log-dashboard.${DOMAINNAME_1}`)"
+      traefik.http.routers.traefik-log-dashboard.rule: "Host(`traefik-log-dashboard.${TRAEFIK_DOMAINNAME_1:?error}`)"
       traefik.http.routers.traefik-log-dashboard.service: "traefik-log-dashboard"
       traefik.http.services.traefik-log-dashboard.loadbalancer.server.port: 3000
 

@@ -160,7 +160,7 @@ linked_repo = "homelab"
 run_directory = "docker/traefik-log-dashboard"
 environment = """
 DOCKER_DATA_DIR=[[DOCKER_DATA_DIR]]
-DOMAINNAME_1=[[TRAEFIK_DOMAINNAME_1]]
+TRAEFIK_DOMAINNAME_1=[[TRAEFIK_DOMAINNAME_1]]
 AUTH_TOKEN=[[TRAEFIK_LOG_DASHBOARD_AUTH_TOKEN]]
 """
 
