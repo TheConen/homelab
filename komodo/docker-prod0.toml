@@ -95,12 +95,10 @@ TRAEFIK_DOMAINNAME_1=[[TRAEFIK_DOMAINNAME_1]]
 name = "nocturne"
 [stack.config]
 server = "local"
-run_build = true
 poll_for_updates = true
 auto_update = true
 destroy_before_deploy = true
 linked_repo = "homelab"
-webhook_force_deploy = true
 run_directory = "docker/nocturne"
 environment = """
 DOCKER_DATA_DIR=[[DOCKER_DATA_DIR]]
