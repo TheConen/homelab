@@ -45,7 +45,7 @@ services:
       AGENT_1_NAME: "docker-prod0"
       DASHBOARD_AGENTS_ENV_ONLY: "true"
       SHOW_DEMO_PAGE: "false"
-      GEOIP_PROVIDER_URLS: "https://ipwho.is,https://ip-api.com/json"
+      GEOIP_PROVIDER_URLS: "http://ipwho.is,http://ip-api.com/json"
     labels:
       traefik.enable: true
       traefik.http.routers.traefik-log-dashboard.entrypoints: "websecure-internal"
