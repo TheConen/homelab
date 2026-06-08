@@ -15,7 +15,7 @@ services:
       - "default"
       - "proxy"
     volumes:
-      - "${DOCKER_DATA_DIR:?error}/traefik/logs:/data:ro,z"
+      - "${DOCKER_DATA_DIR:?error}/traefik/logs:/logs:ro,z"
       - "${DOCKER_DATA_DIR:?error}/${COMPOSE_PROJECT_NAME:?error}/positions:/data:z"
     environment:
       TRAEFIK_LOG_DASHBOARD_AUTH_TOKEN: "${AUTH_TOKEN:?error}"
