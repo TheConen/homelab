@@ -114,8 +114,8 @@ configs:
                 - main: "${DOMAINNAME_1}"
                   sans:
                     - "*.${DOMAINNAME_1}"
-            observability:
-              accessLogs: false
+          observability:
+            accessLogs: false
         traefik:
           address: ":8090"
       
