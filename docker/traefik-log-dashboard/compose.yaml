@@ -1,0 +1,59 @@
+services:
+  agent:
+    container_name: "${COMPOSE_PROJECT_NAME:?error}-agent"
+    image: "hhftechnology/traefik-log-dashboard-agent:3.1.1"
+    restart: "unless-stopped"
+    security_opt:
+      - "no-new-privileges:true"
+    healthcheck:
+      test: [ "CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:5000/api/logs/status" ]
+      interval: 2m
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+    networks:
+      - "default"
+      - "proxy"
+    volumes:
+      - "${DOCKER_DATA_DIR:?error}/traefik/logs:/data:ro,z"
+      - "${DOCKER_DATA_DIR:?error}/${COMPOSE_PROJECT_NAME:?error}/positions:/data:z"
+    environment:
+      TRAEFIK_LOG_DASHBOARD_AUTH_TOKEN: "${AUTH_TOKEN:?error}"
+      TRAEFIK_LOG_DASHBOARD_ACCESS_PATH: "/logs/access.log"
+      TRAEFIK_LOG_DASHBOARD_ERROR_PATH: "/logs/traefik.log"
+      TRAEFIK_LOG_DASHBOARD_SYSTEM_MONITORING: "false"
+      TRAEFIK_LOG_DASHBOARD_LOG_FORMAT: "json"
+
+  dashboard:
+    container_name: "${COMPOSE_PROJECT_NAME:?error}-dashboard"
+    image: "hhftechnology/traefik-log-dashboard:3.1.1"
+    restart: "unless-stopped"
+    security_opt:
+      - "no-new-privileges:true"
+    depends_on:
+      agent:
+        condition: "service_healthy"
+    networks:
+      - "default"
+      - "proxy"
+    volumes:
+      - "${DOCKER_DATA_DIR:?error}/${COMPOSE_PROJECT_NAME:?error}/positions:/data:z"
+      - "${DOCKER_DATA_DIR:?error}/${COMPOSE_PROJECT_NAME:?error}/dashboard:/app/data:z"
+    environment:
+      AGENT_1_TOKEN: "${AUTH_TOKEN:?error}"
+      AGENT_1_URL: "http://agent:5000"
+      AGENT_1_NAME: "docker-prod0"
+      DASHBOARD_AGENTS_ENV_ONLY: "true"
+      SHOW_DEMO_PAGE: "false"
+    labels:
+      traefik.enable: true
+      traefik.http.routers.traefik-log-dashboard.entrypoints: "websecure-internal"
+      traefik.http.routers.traefik-log-dashboard.rule: "Host(`traefik-log-dashboard.${DOMAINNAME_1}`)"
+      traefik.http.routers.traefik-log-dashboard.service: "traefik-log-dashboard"
+      traefik.http.services.traefik-log-dashboard.loadbalancer.server.port: 3000
+
+networks:
+  default: {}
+  proxy:
+    external: true
+    name: "proxy"
