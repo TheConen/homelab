@@ -15,7 +15,7 @@ services:
       - "/run"
   traefik:
     container_name: "traefik"
-    image: "traefik:v3.7.5"
+    image: "traefik:v3.7.6"
     restart: "unless-stopped"
     security_opt:
       - "no-new-privileges:true"
