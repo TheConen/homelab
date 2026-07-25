@@ -102,12 +102,12 @@ networks:
   proxy:
     external: true
     name: "proxy"
-configs:
-  nginx-config:
-    content: |
-      server {        
-        index index.html;
-        location / {
-          try_files $$uri $$uri/ /index.html;
-        }
-      }
+#configs:
+#  nginx-config:
+#    content: |
+#      server {
+#        index index.html;
+#        location / {
+#          try_files $$uri $$uri/ /index.html;
+#        }
+#      }
