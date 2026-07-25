@@ -58,28 +58,28 @@ services:
       traefik.http.routers.nightscout-external.service: "nightscout"
       traefik.http.routers.nightscout-external.middlewares: "badger@docker"
       traefik.http.services.nightscout.loadbalancer.server.port: 8080
-  nightscout-reporter:
-    container_name: "nightscout-reporter"
-    build: "https://github.com/TheConen/nightscout-reporter-angular.git"
-    pull_policy: "always"
-    restart: "unless-stopped"
-    security_opt:
-      - "no-new-privileges:true"
-    configs:
-        - source: "nginx-config"
-          target: "/etc/nginx/conf.d/nginx.conf"
-    networks:
-      - "proxy"
-    labels:
-      traefik.enable: true
-      traefik.http.routers.nightscout-reporter-internal.entrypoints: "websecure-internal"
-      traefik.http.routers.nightscout-reporter-external.entrypoints: "websecure-external"
-      traefik.http.routers.nightscout-reporter-internal.rule: "Host(`nightscout-reporter.${TRAEFIK_DOMAINNAME_1:?error}`)"
-      traefik.http.routers.nightscout-reporter-external.rule: "Host(`nightscout-reporter.${TRAEFIK_DOMAINNAME_1:?error}`)"
-      traefik.http.routers.nightscout-reporter-internal.service: "nightscout-reporter"
-      traefik.http.routers.nightscout-reporter-external.service: "nightscout-reporter"
-      traefik.http.routers.nightscout-reporter-external.middlewares: "badger@docker"
-      traefik.http.services.nightscout-reporter.loadbalancer.server.port: 80
+#  nightscout-reporter:
+#    container_name: "nightscout-reporter"
+#    build: "https://github.com/TheConen/nightscout-reporter-angular.git"
+#    pull_policy: "always"
+#    restart: "unless-stopped"
+#    security_opt:
+#      - "no-new-privileges:true"
+#    configs:
+#        - source: "nginx-config"
+#          target: "/etc/nginx/conf.d/nginx.conf"
+#    networks:
+#      - "proxy"
+#    labels:
+#      traefik.enable: true
+#      traefik.http.routers.nightscout-reporter-internal.entrypoints: "websecure-internal"
+#      traefik.http.routers.nightscout-reporter-external.entrypoints: "websecure-external"
+#      traefik.http.routers.nightscout-reporter-internal.rule: "Host(`nightscout-reporter.${TRAEFIK_DOMAINNAME_1:?error}`)"
+#      traefik.http.routers.nightscout-reporter-external.rule: "Host(`nightscout-reporter.${TRAEFIK_DOMAINNAME_1:?error}`)"
+#      traefik.http.routers.nightscout-reporter-internal.service: "nightscout-reporter"
+#      traefik.http.routers.nightscout-reporter-external.service: "nightscout-reporter"
+#      traefik.http.routers.nightscout-reporter-external.middlewares: "badger@docker"
+#      traefik.http.services.nightscout-reporter.loadbalancer.server.port: 80
   db-backup:
     container_name: "${COMPOSE_PROJECT_NAME:?error}-db-backup"
     image: "tiredofit/db-backup:4.1.100"
